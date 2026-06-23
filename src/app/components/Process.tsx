@@ -1,100 +1,136 @@
-import { Search, Lightbulb, Code, TestTube, Rocket } from 'lucide-react';
+import { useRef } from 'react';
+import { motion, useInView } from 'motion/react';
+import { Search, Lightbulb, PenTool, Code2, Rocket } from 'lucide-react';
+
+const steps = [
+  {
+    icon: Search,
+    number: '01',
+    title: 'Discovery',
+    description: 'Deep dive into your brand, audience, goals, and competitive landscape to uncover strategic opportunities.',
+    detail: 'Stakeholder interviews, competitor analysis, brand audit, technical requirements',
+  },
+  {
+    icon: Lightbulb,
+    number: '02',
+    title: 'Strategy',
+    description: 'Define the blueprint — user flows, content strategy, conversion metrics, and technical architecture.',
+    detail: 'Sitemap, user journeys, technical specs, conversion goals, content framework',
+  },
+  {
+    icon: PenTool,
+    number: '03',
+    title: 'Design',
+    description: 'Craft the visual experience — from wireframes to polished, interactive prototypes that tell your story.',
+    detail: 'Wireframing, UI design, motion design, design systems, prototyping',
+  },
+  {
+    icon: Code2,
+    number: '04',
+    title: 'Development',
+    description: 'Translate design into production-grade code with performance, accessibility, and polish at the core.',
+    detail: 'Component architecture, animation engineering, performance optimization, responsive build',
+  },
+  {
+    icon: Rocket,
+    number: '05',
+    title: 'Launch',
+    description: 'Ship with confidence — thorough testing, smooth deployment, and continuous iteration based on real data.',
+    detail: 'QA testing, deployment, analytics setup, monitoring, iteration roadmap',
+  },
+];
 
 export function Process() {
-  const steps = [
-    {
-      icon: Search,
-      title: 'Understand the problem',
-      description: 'Deep dive into user needs, business goals, and technical constraints',
-      color: 'from-blue-500 to-cyan-500'
-    },
-    {
-      icon: Lightbulb,
-      title: 'Design the solution',
-      description: 'Create intuitive flows, wireframes, and prototypes with stakeholder feedback',
-      color: 'from-purple-500 to-pink-500'
-    },
-    {
-      icon: Code,
-      title: 'Build scalable architecture',
-      description: 'Write clean, maintainable code with performance and scalability in mind',
-      color: 'from-green-500 to-emerald-500'
-    },
-    {
-      icon: TestTube,
-      title: 'Test & refine',
-      description: 'Rigorous testing, user feedback, and iterative improvements',
-      color: 'from-orange-500 to-yellow-500'
-    },
-    {
-      icon: Rocket,
-      title: 'Launch & iterate',
-      description: 'Deploy with confidence and continuously improve based on real data',
-      color: 'from-red-500 to-pink-500'
-    }
-  ];
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="process" className="py-32 px-6 bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-20">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-green-50 text-green-600 text-sm mb-6">
-            How I Work
-          </div>
-          <h2 className="text-5xl mb-6">
-            A proven process for shipping products
+    <section id="process" className="py-32 lg:py-48 px-6 lg:px-12 relative overflow-hidden">
+      <div ref={ref} className="max-w-[1400px] mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 80 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-20"
+        >
+          <span className="text-sm font-mono text-gold tracking-[0.2em] uppercase mb-6 block">
+            [05] Process
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-heading leading-[1.05] max-w-3xl">
+            How I
+            <span className="text-gradient-gold italic"> work</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Structured, iterative approach that balances speed with quality.
-          </p>
-        </div>
+        </motion.div>
 
-        {/* Timeline */}
         <div className="relative">
-          {/* Connecting line */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-200 via-purple-200 to-pink-200 -translate-x-1/2" />
+          <div className="hidden lg:block absolute left-[27.5%] top-0 bottom-0 w-px bg-foreground/5" />
 
-          <div className="space-y-16">
-            {steps.map((step, index) => {
-              const Icon = step.icon;
-              const isEven = index % 2 === 0;
-              
-              return (
-                <div key={index} className="relative">
-                  <div className={`flex flex-col md:flex-row gap-8 items-center ${isEven ? '' : 'md:flex-row-reverse'}`}>
-                    {/* Content */}
-                    <div className={`flex-1 ${isEven ? 'md:text-right' : 'md:text-left'}`}>
-                      <div className="inline-block p-8 rounded-2xl bg-white shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                        <div className="flex items-start gap-4">
-                          <div className={`flex-shrink-0 p-3 rounded-xl bg-gradient-to-br ${step.color}`}>
-                            <Icon className="w-6 h-6 text-white" />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="text-2xl mb-2">
-                              {step.title}
-                            </h3>
-                            <p className="text-gray-600">
-                              {step.description}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Center dot */}
-                    <div className="hidden md:block flex-shrink-0 w-12 h-12 rounded-full bg-white border-4 border-gray-200 shadow-lg flex items-center justify-center relative z-10">
-                      <div className={`w-4 h-4 rounded-full bg-gradient-to-br ${step.color}`} />
-                    </div>
-
-                    {/* Spacer */}
-                    <div className="hidden md:block flex-1" />
-                  </div>
-                </div>
-              );
-            })}
+          <div className="space-y-4 lg:space-y-0">
+            {steps.map((step, index) => (
+              <ProcessStep key={index} step={step} index={index} />
+            ))}
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function ProcessStep({ step, index }: { step: (typeof steps)[0]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
+
+  const Icon = step.icon;
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 60 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+      className="group relative lg:grid lg:grid-cols-12 lg:gap-8 lg:py-12 items-center"
+    >
+      <div className="lg:col-span-3 lg:text-right lg:pr-8">
+        <span className="text-sm font-mono text-foreground/15 group-hover:text-gold transition-colors duration-500">
+          {step.number}
+        </span>
+      </div>
+
+      <div className="hidden lg:flex absolute left-[27.5%] -translate-x-1/2 items-center justify-center">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={isInView ? { scale: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="w-12 h-12 rounded-full border border-foreground/10 bg-dark flex items-center justify-center group-hover:border-gold/30 transition-colors duration-500"
+        >
+          <Icon className="w-5 h-5 text-foreground/30 group-hover:text-gold transition-colors duration-500" />
+        </motion.div>
+      </div>
+
+      <div className="lg:col-span-5 lg:pl-8 py-6 lg:py-0">
+        <h3 className="text-2xl lg:text-3xl font-heading font-semibold text-foreground mb-3 group-hover:text-foreground/80 transition-colors">
+          {step.title}
+        </h3>
+        <p className="text-foreground/30 leading-relaxed mb-4 group-hover:text-foreground/50 transition-colors duration-500">
+          {step.description}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {step.detail.split(', ').map((item, i) => (
+            <span
+              key={i}
+              className="px-2 py-1 text-[10px] font-mono text-foreground/15 border border-foreground/5 rounded-sm group-hover:text-foreground/30 group-hover:border-foreground/10 transition-all duration-500"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="lg:col-span-4 lg:pl-8 hidden lg:block">
+        <div className="text-8xl font-heading font-bold text-foreground/[0.02] group-hover:text-foreground/[0.05] transition-colors duration-500 select-none">
+          {step.number}
+        </div>
+      </div>
+    </motion.div>
   );
 }

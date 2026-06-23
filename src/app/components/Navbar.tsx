@@ -1,159 +1,115 @@
-import { motion, useScroll, useTransform } from "motion/react";
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Menu, X } from 'lucide-react';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
-
-  const navOpacity = useTransform(scrollY, [0, 100], [0.8, 1]);
-  const navBlur = useTransform(scrollY, [0, 100], [0, 20]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Process", href: "#process" },
-    { name: "Testimonials", href: "#testimonials" },
+    { name: 'About', href: '#about' },
+    { name: 'Work', href: '#projects' },
+    { name: 'Services', href: '#services' },
+    { name: 'Process', href: '#process' },
+    { name: 'Stack', href: '#skills' },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
+  const scrollTo = (href: string) => {
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    setIsMobileMenuOpen(false);
   };
 
   return (
     <>
       <motion.nav
-        style={{
-          opacity: navOpacity,
-        }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "py-4 bg-gray-950/80 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/20"
-            : "py-6 bg-transparent"
+            ? 'py-4 glass shadow-lg shadow-black/20'
+            : 'py-6 bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between">
-            {/* Logo */}
             <motion.a
               href="#"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative group"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className="relative group flex items-center gap-3"
+              data-hover
             >
-              <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-sm bg-foreground flex items-center justify-center overflow-hidden relative">
+                <span className="text-background font-heading text-sm font-bold tracking-tight relative z-10">
+                  JO
+                </span>
                 <motion.div
-                  className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-black flex items-center justify-center relative overflow-hidden"
-                  whileHover={{ scale: 1.05, rotate: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-blue-400  to-black/20 rounded-xl"
-                    animate={{
-                      rotate: [0, 360],
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                  />
-                  <span className="relative z-10 text-white font-bold text-xl">
-                    OZ
-                  </span>
-                </motion.div>
-                {/* <span className="text-white font-semibold text-lg tracking-tight">
-                  Ozoyah Oyakhire
-                </span> */}
+                  className="absolute inset-0 bg-gold"
+                  initial={{ y: '100%' }}
+                  whileHover={{ y: 0 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                />
               </div>
+              <span className="hidden lg:block text-sm tracking-[0.2em] uppercase text-foreground/60 font-mono">
+                Justice Oyakhire
+              </span>
             </motion.a>
 
-            {/* Desktop Navigation */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="hidden md:flex items-center gap-1"
-            >
-              {navLinks.map((link, index) => (
-                <motion.a
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map((link, i) => (
+                <motion.button
                   key={link.name}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(link.href);
-                  }}
+                  onClick={() => scrollTo(link.href)}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative px-4 py-2 text-gray-300 hover:text-white transition-colors text-sm group"
+                  transition={{ duration: 0.6, delay: 0.7 + i * 0.08 }}
+                  className="relative px-4 py-2 text-sm text-foreground/50 hover:text-foreground transition-colors duration-300 tracking-wide group"
+                  data-hover
                 >
                   <span className="relative z-10">{link.name}</span>
-                  <motion.div
-                    className="absolute inset-0 rounded-lg bg-white/5"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.2 }}
-                  />
-                </motion.a>
+                  <span className="absolute bottom-1 left-4 right-4 h-px bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                </motion.button>
               ))}
-            </motion.div>
+            </div>
 
-            {/* CTA Button */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
               className="hidden md:block"
             >
               <motion.button
-                onClick={() => scrollToSection("#contact")}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative px-6 py-2.5 bg-white text-gray-900 rounded-lg font-medium text-sm overflow-hidden group"
+                onClick={() => scrollTo('#contact')}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-6 py-2.5 bg-foreground text-background rounded-sm font-medium text-sm tracking-wide relative overflow-hidden group"
+                data-hover
               >
+                <span className="relative z-10 group-hover:text-background transition-colors duration-300">
+                  Let's Talk
+                </span>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
-                  initial={{ x: "100%" }}
+                  className="absolute inset-0 bg-gold"
+                  initial={{ x: '100%' }}
                   whileHover={{ x: 0 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 />
-                <span className="relative z-10 group-hover:text-white transition-colors">
+                <span className="relative z-10 group-hover:text-background transition-colors duration-300">
                   Let's Talk
                 </span>
               </motion.button>
             </motion.div>
 
-            {/* Mobile Menu Button */}
             <motion.button
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-gray-300 hover:text-white transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="md:hidden p-2 text-foreground/60 hover:text-foreground transition-colors"
+              data-hover
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </motion.button>
@@ -161,85 +117,55 @@ export function Navbar() {
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
-      <motion.div
-        initial={false}
-        animate={{
-          opacity: isMobileMenuOpen ? 1 : 0,
-          pointerEvents: isMobileMenuOpen ? "auto" : "none",
-        }}
-        className="fixed inset-0 z-40 md:hidden"
-      >
-        {/* Backdrop */}
-        <motion.div
-          initial={false}
-          animate={{
-            opacity: isMobileMenuOpen ? 1 : 0,
-          }}
-          onClick={() => setIsMobileMenuOpen(false)}
-          className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-        />
-
-        {/* Menu Content */}
-        <motion.div
-          initial={false}
-          animate={{
-            x: isMobileMenuOpen ? 0 : "100%",
-          }}
-          transition={{ type: "spring", damping: 30, stiffness: 300 }}
-          className="absolute top-0 right-0 bottom-0 w-[280px] bg-gray-950 border-l border-white/10 shadow-2xl"
-        >
-          <div className="flex flex-col h-full pt-24 px-6">
-            {navLinks.map((link, index) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(link.href);
-                }}
-                initial={false}
-                animate={{
-                  x: isMobileMenuOpen ? 0 : 100,
-                  opacity: isMobileMenuOpen ? 1 : 0,
-                }}
-                transition={{
-                  delay: isMobileMenuOpen ? index * 0.1 : 0,
-                  duration: 0.3,
-                }}
-                className="relative py-4 text-gray-300 hover:text-white transition-colors text-lg group border-b border-white/5"
-              >
-                <span className="relative z-10">{link.name}</span>
-                <motion.div
-                  className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"
-                  initial={{ opacity: 0, scaleY: 0 }}
-                  whileHover={{ opacity: 1, scaleY: 1 }}
-                  transition={{ duration: 0.2 }}
-                />
-              </motion.a>
-            ))}
-
-            <motion.button
-              initial={false}
-              animate={{
-                x: isMobileMenuOpen ? 0 : 100,
-                opacity: isMobileMenuOpen ? 1 : 0,
-              }}
-              transition={{
-                delay: isMobileMenuOpen ? navLinks.length * 0.1 : 0,
-                duration: 0.3,
-              }}
-              onClick={() => {
-                scrollToSection("#contact");
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="mt-8 px-6 py-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white rounded-lg font-medium text-base"
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 md:hidden"
+          >
+            <motion.div
+              className="absolute inset-0 bg-background/90 backdrop-blur-xl"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="absolute top-0 right-0 bottom-0 w-[320px] bg-background border-l border-foreground/5"
             >
-              Let's Talk
-            </motion.button>
-          </div>
-        </motion.div>
-      </motion.div>
+              <div className="flex flex-col h-full pt-28 px-8">
+                {navLinks.map((link, i) => (
+                  <motion.button
+                    key={link.name}
+                    onClick={() => scrollTo(link.href)}
+                    initial={{ x: 80, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: 80, opacity: 0 }}
+                    transition={{ delay: i * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="py-5 text-3xl font-heading text-foreground/40 hover:text-foreground transition-colors border-b border-foreground/5 text-left"
+                  >
+                    <span className="text-gold text-sm font-mono mr-4">0{ i + 1 }</span>
+                    {link.name}
+                  </motion.button>
+                ))}
+
+                <motion.button
+                  onClick={() => scrollTo('#contact')}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                  className="mt-12 px-8 py-4 bg-foreground text-background rounded-sm text-lg font-medium"
+                >
+                  Start a Project
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

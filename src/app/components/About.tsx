@@ -1,76 +1,102 @@
-import { Code2, Layers, Zap, Users } from "lucide-react";
+import { useRef, useEffect, useState } from 'react';
+import { motion, useInView } from 'motion/react';
 
 export function About() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  const [counters, setCounters] = useState({ years: 0, projects: 0, satisfaction: 0 });
+
+  useEffect(() => {
+    if (!isInView) return;
+    const duration = 2000;
+    const start = Date.now();
+    const tick = () => {
+      const elapsed = Date.now() - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      setCounters({
+        years: Math.round(3 * ease),
+        projects: Math.round(20 * ease),
+        satisfaction: Math.round(100 * ease),
+      });
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    tick();
+  }, [isInView]);
+
   return (
-    <section id="about" className="py-32 px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <div className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-sm mb-6">
-              About Me
-            </div>
-            <h2 className="text-5xl mb-6">
-              Product-minded developer who ships.
+    <section id="about" className="py-32 lg:py-48 px-6 lg:px-12 relative">
+      <div className="max-w-[1400px] mx-auto">
+        <div ref={ref} className="grid lg:grid-cols-12 gap-16 lg:gap-24">
+          <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-4"
+          >
+            <span className="text-sm font-mono text-gold tracking-[0.2em] uppercase mb-6 block">
+              [01] About
+            </span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading leading-[1.05]">
+              Bridging
+              <span className="text-gradient-gold italic"> creativity</span>
+              <br />and engineering
             </h2>
-            <p className="text-xl text-gray-600 mb-6 leading-relaxed">
-              I don't just write code — I solve problems. With a focus on
-              frontend engineering and product thinking, I build applications
-              that users love and businesses need.
-            </p>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Every line of code is written with performance, scalability, and
-              user experience in mind. I thrive at the intersection of design
-              and engineering, turning complex requirements into elegant
-              solutions.
-            </p>
-            <div className="flex gap-4">
-              <div className="flex-1 p-6 rounded-2xl bg-gray-50 border border-gray-100">
-                <div className="text-3xl mb-2">3+</div>
-                <div className="text-sm text-gray-600">Years Experience</div>
-              </div>
-              <div className="flex-1 p-6 rounded-2xl bg-gray-50 border border-gray-100">
-                <div className="text-3xl mb-2">20+</div>
-                <div className="text-sm text-gray-600">Projects Shipped</div>
-              </div>
-              <div className="flex-1 p-6 rounded-2xl bg-gray-50 border border-gray-100">
-                <div className="text-3xl mb-2">100%</div>
-                <div className="text-sm text-gray-600">Client Satisfaction</div>
-              </div>
-            </div>
-          </div>
+          </motion.div>
 
-          <div className="relative h-[500px]">
-            <div className="absolute top-0 right-0 w-64 p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 border border-gray-200 shadow-xl transform rotate-3">
-              <Code2 className="w-8 h-8 text-blue-600 mb-3" />
-              <h3 className="text-lg mb-2">Clean Code</h3>
-              <p className="text-sm text-gray-600">
-                Maintainable, scalable architecture
+          <div className="lg:col-span-8 space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <p className="text-xl md:text-2xl text-foreground/60 leading-relaxed font-light">
+                I'm <span className="text-foreground font-medium">Justice Oyakhire</span> — a multidisciplinary creative who refuses to choose between design and code. I believe the best digital products are born at the intersection of aesthetic vision and technical precision.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="absolute top-20 left-0 w-64 p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-gray-200 shadow-xl transform -rotate-3">
-              <Users className="w-8 h-8 text-purple-600 mb-3" />
-              <h3 className="text-lg mb-2">User-Centered</h3>
-              <p className="text-sm text-gray-600">
-                Design with real user needs first
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <p className="text-lg text-foreground/40 leading-relaxed">
+                As the founder of <span className="text-gold">Crafts and Code Studio</span>, I bring a philosophy that design without engineering is art, and engineering without design is machinery. I create the space where both thrive — building digital experiences that look exceptional and perform exceptionally.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="absolute bottom-20 right-12 w-64 p-6 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-gray-200 shadow-xl transform rotate-2">
-              <Zap className="w-8 h-8 text-green-600 mb-3" />
-              <h3 className="text-lg mb-2">Performance</h3>
-              <p className="text-sm text-gray-600">
-                Optimized for speed and efficiency
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1.2, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <p className="text-lg text-foreground/40 leading-relaxed">
+                Every project I touch is guided by a simple belief: premium brands deserve premium digital experiences. Not just beautiful — strategic. Not just fast — memorable. Not just functional — conversion-focused.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="absolute bottom-0 left-12 w-64 p-6 rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 border border-gray-200 shadow-xl transform -rotate-2">
-              <Layers className="w-8 h-8 text-orange-600 mb-3" />
-              <h3 className="text-lg mb-2">Full Stack</h3>
-              <p className="text-sm text-gray-600">
-                Frontend to deployment expertise
-              </p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="grid grid-cols-3 gap-6 pt-8 border-t border-foreground/5"
+            >
+              {[
+                { value: `${counters.years}+`, label: 'Years of Craft' },
+                { value: `${counters.projects}+`, label: 'Projects Delivered' },
+                { value: `${counters.satisfaction}%`, label: 'Client Satisfaction' },
+              ].map((stat, i) => (
+                <div key={i} className="text-center lg:text-left">
+                  <div className="text-4xl lg:text-5xl font-heading font-bold text-foreground mb-1">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-foreground/30 font-mono tracking-wider uppercase">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </div>

@@ -1,109 +1,139 @@
-import { Code, Palette, Settings } from 'lucide-react';
+import { useRef } from 'react';
+import { motion, useInView } from 'motion/react';
+
+const designStack = [
+  { name: 'Figma', level: 95 },
+  { name: 'Adobe Photoshop', level: 85 },
+  { name: 'Adobe Illustrator', level: 75 },
+  { name: 'Prototyping', level: 90 },
+  { name: 'Design Systems', level: 92 },
+  { name: 'Typography', level: 88 },
+];
+
+const engineeringStack = [
+  { name: 'React', level: 95 },
+  { name: 'TypeScript', level: 90 },
+  { name: 'Next.js', level: 88 },
+  { name: 'Tailwind CSS', level: 95 },
+  { name: 'Framer Motion', level: 90 },
+  { name: 'GSAP', level: 82 },
+  { name: 'Node.js', level: 75 },
+  { name: 'Figma to Code', level: 95 },
+];
 
 export function Skills() {
-  const skillCategories = [
-    {
-      icon: Code,
-      title: 'Frontend Engineering',
-      description: 'Building responsive, performant user interfaces',
-      skills: [
-        'React & Next.js',
-        'TypeScript',
-        'Tailwind CSS',
-        'State Management',
-        'Web Performance',
-        'Accessibility (a11y)'
-      ],
-      gradient: 'from-blue-500 to-cyan-500'
-    },
-    {
-      icon: Palette,
-      title: 'Product & UX Thinking',
-      description: 'Designing with users and business goals in mind',
-      skills: [
-        'User Research',
-        'Product Strategy',
-        'Design Systems',
-        'Prototyping',
-        'A/B Testing',
-        'Analytics Integration'
-      ],
-      gradient: 'from-purple-500 to-pink-500'
-    },
-    {
-      icon: Settings,
-      title: 'Engineering Practices',
-      description: 'Building maintainable, scalable applications',
-      skills: [
-        'Git & CI/CD',
-        'Testing (Jest, Cypress)',
-        'API Integration',
-        'Code Review',
-        'Agile/Scrum',
-        'Technical Documentation'
-      ],
-      gradient: 'from-orange-500 to-red-500'
-    }
-  ];
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="skills" className="py-32 px-6 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-purple-50 text-purple-600 text-sm mb-6">
-            Skills & Expertise
-          </div>
-          <h2 className="text-5xl mb-6">
-            Full-spectrum product development
+    <section id="skills" className="py-32 lg:py-48 px-6 lg:px-12 relative">
+      <div ref={ref} className="max-w-[1400px] mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 80 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-20"
+        >
+          <span className="text-sm font-mono text-gold tracking-[0.2em] uppercase mb-6 block">
+            [06] Stack
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-heading leading-[1.05] max-w-3xl">
+            Design &
+            <span className="text-gradient-gold italic"> engineering</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            From ideation to deployment, I bring the skills needed to build complete digital products.
-          </p>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+              className="mb-8"
+            >
+              <span className="text-sm font-mono text-foreground/30 tracking-widest uppercase">
+                Design
+              </span>
+              <div className="h-px w-full bg-foreground/5 mt-4" />
+            </motion.div>
+
+            <div className="space-y-6">
+              {designStack.map((skill, index) => (
+                <SkillBar key={index} skill={skill} index={index} isInView={isInView} />
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+              className="mb-8"
+            >
+              <span className="text-sm font-mono text-foreground/30 tracking-widest uppercase">
+                Engineering
+              </span>
+              <div className="h-px w-full bg-foreground/5 mt-4" />
+            </motion.div>
+
+            <div className="space-y-6">
+              {engineeringStack.map((skill, index) => (
+                <SkillBar key={index} skill={skill} index={index} isInView={isInView} delay={0.3} />
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {skillCategories.map((category, index) => {
-            const Icon = category.icon;
-            return (
-              <div
-                key={index}
-                className="group relative p-8 rounded-3xl bg-white border border-gray-200 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
+          className="mt-20 pt-12 border-t border-foreground/5"
+        >
+          <div className="flex flex-wrap gap-3">
+            {['HTML5', 'CSS3', 'JavaScript', 'Git', 'Vercel', 'REST APIs', 'Responsive Design', 'SEO', 'Web Performance', 'Accessibility', 'Agile', 'CI/CD'].map((tag, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.5, delay: 0.8 + i * 0.04 }}
+                className="px-4 py-2 text-sm font-mono text-foreground/20 border border-foreground/5 rounded-sm hover:border-gold/20 hover:text-gold/60 transition-all duration-300"
               >
-                {/* Gradient background on hover */}
-                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${category.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-                
-                <div className="relative">
-                  {/* Icon */}
-                  <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${category.gradient} mb-6`}>
-                    <Icon className="w-6 h-6 text-white" />
-                  </div>
-
-                  {/* Title & Description */}
-                  <h3 className="text-2xl mb-3">
-                    {category.title}
-                  </h3>
-                  <p className="text-gray-600 mb-6">
-                    {category.description}
-                  </p>
-
-                  {/* Skills list */}
-                  <div className="space-y-3">
-                    {category.skills.map((skill, skillIndex) => (
-                      <div
-                        key={skillIndex}
-                        className="flex items-center gap-2 text-sm"
-                      >
-                        <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${category.gradient}`} />
-                        <span className="text-gray-700">{skill}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                {tag}
+              </motion.span>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
+  );
+}
+
+function SkillBar({ skill, index, isInView, delay = 0 }: { skill: { name: string; level: number }; index: number; isInView: boolean; delay?: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: delay + 0.3 + index * 0.08 }}
+      className="group"
+    >
+      <div className="flex justify-between items-baseline mb-2">
+        <span className="text-sm font-mono text-foreground/50 group-hover:text-foreground/80 transition-colors duration-300">
+          {skill.name}
+        </span>
+        <span className="text-xs font-mono text-foreground/15">
+          {skill.level}%
+        </span>
+      </div>
+      <div className="h-px w-full bg-foreground/5 relative overflow-hidden">
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: skill.level / 100 } : {}}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: delay + 0.5 + index * 0.08 }}
+          className="absolute top-0 left-0 h-full bg-gradient-to-r from-gold/60 to-gold origin-left"
+        />
+      </div>
+    </motion.div>
   );
 }
