@@ -4,6 +4,8 @@ import { About } from './components/About';
 import { Projects } from './components/Projects';
 import { Services } from './components/Services';
 import { Process } from './components/Process';
+import { EngineeringMindset } from './components/EngineeringMindset';
+import { ProductPhilosophy } from './components/ProductPhilosophy';
 import { Skills } from './components/Skills';
 import { Testimonials } from './components/Testimonials';
 import { CTA } from './components/CTA';
@@ -23,6 +25,8 @@ export default function App() {
         <Marquee />
         <Services />
         <Process />
+        <EngineeringMindset />
+        <ProductPhilosophy />
         <Skills />
         <Testimonials />
         <CTA />

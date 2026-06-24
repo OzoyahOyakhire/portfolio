@@ -91,9 +91,6 @@ export function Navbar() {
                 className="px-6 py-2.5 bg-foreground text-background rounded-sm font-medium text-sm tracking-wide relative overflow-hidden group"
                 data-hover
               >
-                <span className="relative z-10 group-hover:text-background transition-colors duration-300">
-                  Let's Talk
-                </span>
                 <motion.div
                   className="absolute inset-0 bg-gold"
                   initial={{ x: '100%' }}

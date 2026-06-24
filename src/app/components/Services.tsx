@@ -4,33 +4,33 @@ import { motion, useInView } from 'motion/react';
 const services = [
   {
     number: '01',
-    title: 'Brand Identity',
-    description: 'Strategic brand systems that communicate your value proposition with clarity and distinction. Logo, typography, color, voice — crafted to resonate.',
-    features: ['Brand Strategy', 'Visual Identity', 'Brand Guidelines', 'Voice & Tone'],
+    title: 'Software Products',
+    description: 'Custom-built platforms, SaaS applications, and business software engineered for scale. From MVP to production-ready systems.',
+    features: ['SaaS Platforms', 'Custom Software', 'API Development', 'System Architecture'],
   },
   {
     number: '02',
-    title: 'Website Design',
-    description: 'Premium web experiences designed to captivate, communicate, and convert. Every pixel serves a purpose. Every interaction tells a story.',
-    features: ['UI/UX Design', 'Design Systems', 'Responsive Design', 'Prototyping'],
+    title: 'Web Applications',
+    description: 'Fast, scalable, modern web systems built with production-grade architecture. React, Next.js, TypeScript — engineered for performance.',
+    features: ['React / Next.js', 'TypeScript', 'Performance', 'Scalable Architecture'],
   },
   {
     number: '03',
-    title: 'Frontend Development',
-    description: 'Production-grade code that brings designs to life with butter-smooth animations, pixel-perfect execution, and performance that impresses.',
-    features: ['React / Next.js', 'GSAP / Motion', 'Performance', 'Accessibility'],
+    title: 'AI & Automation Tools',
+    description: 'Systems that reduce manual work and improve efficiency. Machine learning models, predictive engines, and automated workflows.',
+    features: ['Machine Learning', 'Process Automation', 'Data Pipelines', 'Predictive Systems'],
   },
   {
     number: '04',
-    title: 'Product Design',
-    description: 'End-to-end product thinking — from user research and strategy to high-fidelity design and interactive prototyping.',
-    features: ['User Research', 'Product Strategy', 'Interaction Design', 'Testing'],
+    title: 'Premium Websites',
+    description: 'High-performing brand experiences that look exceptional and convert. Awwwards-level design with engineering precision.',
+    features: ['UI/UX Design', 'Design Systems', 'Animation', 'Conversion Strategy'],
   },
   {
     number: '05',
-    title: 'Conversion Optimization',
-    description: 'Data-informed design decisions that turn visitors into customers. Every layout, CTA, and flow is optimized for business results.',
-    features: ['A/B Testing', 'Analytics', 'Funnel Design', 'CRO Strategy'],
+    title: 'Product Design',
+    description: 'End-to-end product thinking — user research, strategy, interaction design, and prototyping for products that people actually use.',
+    features: ['User Research', 'Product Strategy', 'Wireframing', 'Prototyping'],
   },
 ];
 
@@ -51,17 +51,17 @@ export function Services() {
           className="mb-20"
         >
           <span className="text-sm font-mono text-gold tracking-[0.2em] uppercase mb-6 block">
-            [04] Services
+            [04] What I Build
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-heading leading-[1.05] max-w-3xl">
-            What I
-            <span className="text-gradient-gold italic"> bring</span>
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-heading leading-[1.05] max-w-4xl">
+            From idea to
+            <span className="text-gradient-gold italic"> product</span>
           </h2>
         </motion.div>
 
-        <div className="space-y-0">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-foreground/5 rounded-sm overflow-hidden">
           {services.map((service, index) => (
-            <ServiceItem key={index} service={service} index={index} />
+            <ServiceCard key={index} service={service} index={index} />
           ))}
         </div>
       </div>
@@ -69,7 +69,7 @@ export function Services() {
   );
 }
 
-function ServiceItem({ service, index }: { service: (typeof services)[0]; index: number }) {
+function ServiceCard({ service, index }: { service: (typeof services)[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const [isHovered, setIsHovered] = useState(false);
@@ -82,29 +82,28 @@ function ServiceItem({ service, index }: { service: (typeof services)[0]; index:
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group border-b border-foreground/5 last:border-0"
+      className="group relative bg-dark p-8 lg:p-10 transition-colors duration-500 hover:bg-dark-card"
       data-hover
     >
-      <div className="py-8 lg:py-12 grid lg:grid-cols-12 gap-6 items-start">
-        <div className="lg:col-span-1">
-          <span className="text-sm font-mono text-foreground/20 group-hover:text-gold transition-colors duration-500">
-            {service.number}
-          </span>
-        </div>
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-gold/[0.02] to-transparent opacity-0 transition-opacity duration-500"
+        animate={{ opacity: isHovered ? 1 : 0 }}
+      />
 
-        <div className="lg:col-span-4">
-          <h3 className="text-2xl lg:text-3xl font-heading font-semibold text-foreground group-hover:text-foreground/80 transition-colors duration-500">
-            {service.title}
-          </h3>
-        </div>
+      <div className="relative z-10">
+        <span className="text-5xl font-heading font-bold text-foreground/[0.03] group-hover:text-gold/[0.08] transition-colors duration-500 block mb-6">
+          {service.number}
+        </span>
 
-        <div className="lg:col-span-4">
-          <p className="text-foreground/30 leading-relaxed group-hover:text-foreground/50 transition-colors duration-500">
-            {service.description}
-          </p>
-        </div>
+        <h3 className="text-2xl lg:text-3xl font-heading font-semibold text-foreground mb-4 group-hover:text-foreground/80 transition-colors duration-500">
+          {service.title}
+        </h3>
 
-        <div className="lg:col-span-3 flex flex-wrap gap-2">
+        <p className="text-foreground/30 leading-relaxed mb-8 group-hover:text-foreground/50 transition-colors duration-500">
+          {service.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2">
           {service.features.map((feature, i) => (
             <span
               key={i}

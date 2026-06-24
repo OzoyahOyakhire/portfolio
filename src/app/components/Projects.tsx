@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { motion, useInView, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { ExternalLink, ArrowUpRight } from 'lucide-react';
+import { motion, useInView, useMotionValue, useSpring, useTransform, AnimatePresence } from 'motion/react';
+import { ExternalLink, ArrowUpRight, Github } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import aqumodaImage from '@/assets/aquimoda.PNG';
 import gymImage from '@/assets/gym.PNG';
@@ -8,79 +8,94 @@ import jobFinderImage from '@/assets/jobfinder.PNG';
 
 const projects = [
   {
-    title: 'Aquimoda London',
-    category: 'Brand & Web Design',
+    title: 'PHC WorkHub',
+    category: 'Document Automation Platform',
     year: '2025',
+    type: 'SaaS Product',
     description:
-      'Luxury personal styling & wardrobe curation platform. Premium brand storytelling with seamless client booking for high-end clientele.',
-    problem: 'Needed a digital presence matching the exclusivity of their in-person styling services.',
-    solution: 'Crafted a bespoke web experience with editorial design, refined typography, and intuitive booking flows.',
+      'A document automation platform that streamlines PDF generation, subscription management, payment processing, and document workflows for businesses.',
+    problem: 'Businesses were manually processing thousands of documents monthly — slow, error-prone, and impossible to scale.',
+    solution: 'Built an end-to-end document automation engine with PDF generation, subscription billing via payment APIs, and automated document workflow pipelines.',
+    architecture: 'React SPA + Node.js API layer + Payment gateway integration + PDF generation service + Subscription management system',
+    challenges: 'Designing a reliable PDF generation pipeline, handling concurrent document processing, and building a fault-tolerant subscription billing system.',
+    image: gymImage,
+    tags: ['React', 'TypeScript', 'APIs', 'Payment Integration', 'PDF Generation', 'Subscriptions'],
+    color: '#22c55e',
+    demoUrl: '#',
+    repoUrl: '#',
+    results: ['10x faster document processing', '95% reduction in manual errors', 'Automated payment & subscription flows'],
+  },
+  {
+    title: 'Intelligent Livestock Cost Estimation Platform',
+    category: 'AI-Powered Analytics Platform',
+    year: '2025',
+    type: 'Intelligent System',
+    description:
+      'An AI-powered cost estimation engine for livestock operations — combining predictive models, risk analysis, and intelligent projections for data-driven decision making.',
+    problem: 'Agricultural businesses relied on guesswork and spreadsheets for cost forecasting — leading to financial losses and poor planning.',
+    solution: 'Engineered an intelligent estimation platform with machine learning prediction models, real-time market data integration, and risk analysis dashboards.',
+    architecture: 'React dashboard + Python ML backend + Prediction engine + Real-time data pipeline + Visualization layer',
+    challenges: 'Training accurate prediction models with limited agricultural data, building real-time data ingestion pipelines, and making ML outputs interpretable for non-technical users.',
+    image: jobFinderImage,
+    tags: ['React', 'Python', 'Machine Learning', 'Predictive Analytics', 'Data Visualization'],
+    color: '#3b82f6',
+    demoUrl: '#',
+    repoUrl: '#',
+    results: ['85% estimation accuracy', '3x faster business decisions', 'Data-driven risk assessments'],
+  },
+  {
+    title: 'Spotify Clone',
+    category: 'Streaming Application',
+    year: '2024',
+    type: 'Full-Stack Product',
+    description:
+      'A fully functional music streaming platform showcasing production-grade software engineering — authentication, streaming logic, state management, and performance optimization.',
+    problem: 'Demonstrate the ability to build a complex, real-time streaming application with robust authentication and state management architecture.',
+    solution: 'Architected a complete streaming platform with secure auth flows, efficient audio streaming, global state management, and optimized rendering for seamless playback.',
+    architecture: 'React + Redux state management + Auth flow + Streaming service + Optimized audio pipeline',
+    challenges: 'Building smooth audio streaming without buffering, managing complex global state for playback/no queues, and optimizing component rendering during live streaming.',
     image: aqumodaImage,
-    tags: ['HTML', 'CSS', 'JavaScript', 'Figma'],
+    tags: ['React', 'Redux', 'Auth', 'Streaming', 'Performance Optimization', 'APIs'],
+    color: '#1DB954',
+    demoUrl: '#',
+    repoUrl: '#',
+    results: ['Seamless 0-buffer playback', 'Robust auth & session management', 'Production-grade state architecture'],
+  },
+  {
+    title: 'WhatsApp Ordering System',
+    category: 'Business Automation',
+    year: '2024',
+    type: 'Automation Tool',
+    description:
+      'An automated ordering system built on WhatsApp — enabling businesses to receive, process, and fulfill orders through conversational commerce with automated bot workflows.',
+    problem: 'Small businesses were losing orders and revenue because their ordering process required manual phone calls, messages, and follow-ups.',
+    solution: 'Built a WhatsApp-integrated ordering bot with Twilio APIs, automated order processing, messaging workflows, and real-time notifications for both customers and businesses.',
+    architecture: 'WhatsApp Bot + Twilio API integration + Order processing engine + Notification system + Admin dashboard',
+    challenges: 'Building reliable two-way messaging flows, handling order state across interrupted conversations, and integrating payment confirmations via messaging.',
+    image: gymImage,
+    tags: ['Twilio APIs', 'Node.js', 'Bot Workflows', 'Backend', 'Automation', 'Messaging'],
+    color: '#25D366',
+    demoUrl: '#',
+    repoUrl: '#',
+    results: ['Automated 80% of order flow', '50% increase in completed orders', 'Zero missed orders'],
+  },
+  {
+    title: 'Aquimoda London',
+    category: 'Premium Brand Platform',
+    year: '2025',
+    type: 'Digital Experience',
+    description:
+      'A luxury personal styling & wardrobe curation platform. Premium brand storytelling with seamless client booking for high-end clientele — where design thinking meets engineering excellence.',
+    problem: 'Needed a digital presence that matched the exclusivity of their in-person styling services and drove high-value client bookings.',
+    solution: 'Crafted a bespoke web experience with editorial design, refined typography, intuitive booking flows, and a performance-optimized architecture.',
+    architecture: 'Static site + Optimized asset delivery + Booking integration + SEO + Performance-first architecture',
+    challenges: 'Achieving luxury-level visual quality while maintaining 95+ Lighthouse scores and sub-2s load times on all devices.',
+    image: aqumodaImage,
+    tags: ['HTML', 'CSS', 'JavaScript', 'Figma', 'Performance', 'SEO'],
     color: '#DAA520',
     demoUrl: 'https://aquimoda.vercel.app/',
     repoUrl: 'https://github.com/OzoyahOyakhire/aquimoda',
     results: ['40% increase in booking inquiries', '2.1s average load time', '95+ Lighthouse score'],
-  },
-  {
-    title: 'PHC WorkHub',
-    category: 'Product Design & Development',
-    year: '2025',
-    description:
-      'A collaborative workspace platform designed for modern teams — combining real-time communication, project management, and seamless integrations.',
-    problem: 'Teams juggling multiple tools needed a unified workspace that felt intuitive.',
-    solution: 'Designed and built an integrated platform with real-time features, clean architecture, and a focus on team workflows.',
-    image: gymImage,
-    tags: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'],
-    color: '#22c55e',
-    demoUrl: '#',
-    repoUrl: '#',
-    results: ['Unified 4 tools into 1 platform', '60% faster task completion', '4.8/5 user satisfaction'],
-  },
-  {
-    title: 'Livestock Cost Estimator',
-    category: 'Web Application',
-    year: '2025',
-    description:
-      'A precision cost estimation platform for livestock operations — combining real-time market data with intelligent projections for farmers and ranchers.',
-    problem: 'Agricultural businesses lacked data-driven tools for accurate cost forecasting.',
-    solution: 'Built an intelligent estimation engine with real-time data integration and intuitive visual dashboards.',
-    image: jobFinderImage,
-    tags: ['React', 'Tailwind CSS', 'Node.js', 'Charts'],
-    color: '#3b82f6',
-    demoUrl: '#',
-    repoUrl: '#',
-    results: ['85% estimation accuracy', '3x faster decision making', '500+ active users'],
-  },
-  {
-    title: 'Get-Fit Gym',
-    category: 'Web Design & Development',
-    year: '2024',
-    description:
-      'A modern fitness platform designed to showcase services, drive memberships, and present training programs through a high-performance interface.',
-    problem: 'Gym needed a digital experience that matched their premium in-person training quality.',
-    solution: 'Created a clean, high-impact website with smooth animations, membership CTAs, and workout showcase.',
-    image: gymImage,
-    tags: ['React', 'Tailwind CSS', 'Framer Motion'],
-    color: '#ef4444',
-    demoUrl: 'https://oze-gym-website.vercel.app/',
-    repoUrl: 'https://github.com/OzoyahOyakhire/gym-website',
-    results: ['28% membership increase', '1.4s load time', '92+ mobile score'],
-  },
-  {
-    title: 'Job Finder',
-    category: 'Product Design',
-    year: '2024',
-    description:
-      'An intelligent job search platform with advanced filtering, clean presentation, and a seamless discovery experience for job seekers.',
-    problem: 'Job seekers frustrated with cluttered platforms needed a focused, intuitive search experience.',
-    solution: 'Designed a streamlined job discovery platform with smart filters, saved searches, and clean UX.',
-    image: jobFinderImage,
-    tags: ['React', 'Tailwind CSS', 'Firebase', 'Redux'],
-    color: '#a855f7',
-    demoUrl: 'https://job-finder-one-ebon.vercel.app',
-    repoUrl: 'https://github.com/OzoyahOyakhire/Job-finder-React-ap',
-    results: ['50% faster job discovery', '3.5k+ monthly active users', '4.6/5 user rating'],
   },
 ];
 
@@ -100,11 +115,11 @@ export function Projects() {
           className="mb-20"
         >
           <span className="text-sm font-mono text-gold tracking-[0.2em] uppercase mb-6 block">
-            [03] Featured Work
+            [03] Product Case Studies
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-heading leading-[1.05] max-w-3xl">
-            Projects built with
-            <span className="text-gradient-gold italic"> purpose</span>
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-heading leading-[1.05] max-w-4xl">
+            Software built to
+            <span className="text-gradient-gold italic"> solve problems</span>
           </h2>
         </motion.div>
 
@@ -177,11 +192,7 @@ function ProjectCard({
         style={{ rotateX, rotateY }}
         className="preserve-3d"
       >
-        <div
-          className={`relative rounded-lg overflow-hidden transition-all duration-500 ${
-            isExpanded ? 'bg-dark-card' : 'bg-dark-card hover:bg-dark-card/80'
-          } border border-foreground/5 hover:border-foreground/10`}
-        >
+        <div className="relative rounded-lg overflow-hidden transition-all duration-500 bg-dark-card border border-foreground/5 hover:border-foreground/10">
           <div className="grid lg:grid-cols-12 gap-0">
             <div className="lg:col-span-5 relative overflow-hidden">
               <div className="aspect-[16/10] lg:aspect-auto lg:h-full overflow-hidden">
@@ -195,7 +206,6 @@ function ProjectCard({
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-dark/80 lg:block hidden" />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent lg:hidden" />
               </div>
-
               <div
                 className="absolute top-0 left-0 w-full h-full opacity-0 transition-opacity duration-500"
                 style={{ opacity: isHovered ? 0.15 : 0, background: project.color }}
@@ -204,8 +214,8 @@ function ProjectCard({
 
             <div className="lg:col-span-7 p-8 lg:p-12 flex flex-col justify-center">
               <div className="flex items-center gap-4 mb-6">
-                <span className="text-sm font-mono text-foreground/30">
-                  0{index + 1}
+                <span className="px-2 py-0.5 text-[10px] font-mono text-gold border border-gold/20 rounded-sm bg-gold/[0.03] tracking-wider uppercase">
+                  {project.type}
                 </span>
                 <span className="h-px flex-1 bg-foreground/5" />
                 <span className="text-sm font-mono text-foreground/30">
@@ -239,38 +249,50 @@ function ProjectCard({
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="text-left text-sm font-mono text-gold hover:text-gold-light transition-colors mb-6"
               >
-                {isExpanded ? '— Less' : '+ Read More'}
+                {isExpanded ? '— Collapse' : '+ View Case Study'}
               </button>
 
-              {isExpanded && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="space-y-6 mb-6"
-                >
-                  <div>
-                    <h4 className="text-sm font-mono text-foreground/30 uppercase tracking-wider mb-2">Problem</h4>
-                    <p className="text-foreground/50">{project.problem}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-mono text-foreground/30 uppercase tracking-wider mb-2">Solution</h4>
-                    <p className="text-foreground/50">{project.solution}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-mono text-foreground/30 uppercase tracking-wider mb-2">Results</h4>
-                    <ul className="space-y-1">
-                      {project.results.map((result, i) => (
-                        <li key={i} className="text-foreground/50 flex items-center gap-2">
-                          <span className="w-1 h-1 rounded-full bg-gold" />
-                          {result}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              )}
+              <AnimatePresence>
+                {isExpanded && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    className="space-y-6 mb-6 overflow-hidden"
+                  >
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="text-sm font-mono text-foreground/30 uppercase tracking-wider mb-2">Problem</h4>
+                        <p className="text-foreground/50 text-sm">{project.problem}</p>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-mono text-foreground/30 uppercase tracking-wider mb-2">Solution</h4>
+                        <p className="text-foreground/50 text-sm">{project.solution}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-mono text-foreground/30 uppercase tracking-wider mb-2">Architecture</h4>
+                      <p className="text-foreground/50 text-sm font-mono">{project.architecture}</p>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-mono text-foreground/30 uppercase tracking-wider mb-2">Challenges</h4>
+                      <p className="text-foreground/50 text-sm">{project.challenges}</p>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-mono text-foreground/30 uppercase tracking-wider mb-2">Outcome</h4>
+                      <ul className="space-y-1">
+                        {project.results.map((result, i) => (
+                          <li key={i} className="text-foreground/50 flex items-center gap-2 text-sm">
+                            <span className="w-1 h-1 rounded-full bg-gold" />
+                            {result}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <div className="flex flex-wrap gap-2 mb-6">
                 {project.tags.map((tag, tagIndex) => (
@@ -290,7 +312,7 @@ function ProjectCard({
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm font-medium text-foreground group/link hover:text-gold transition-colors"
                 >
-                  Live Site
+                  Live Product
                   <ExternalLink className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                 </a>
                 <a
@@ -299,6 +321,7 @@ function ProjectCard({
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm font-medium text-foreground/30 hover:text-foreground/60 transition-colors"
                 >
+                  <Github className="w-3.5 h-3.5" />
                   Source
                 </a>
               </div>

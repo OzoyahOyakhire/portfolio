@@ -18,12 +18,12 @@ export function Footer() {
                   Justice Oyakhire
                 </div>
                 <div className="text-foreground/30 text-sm font-mono">
-                  Crafts and Code Studio
+                  Software Developer &middot; Product Engineer
                 </div>
               </div>
             </div>
             <p className="text-foreground/20 leading-relaxed max-w-sm text-sm">
-              Designing and building premium digital experiences that look exceptional and perform exceptionally.
+              Building scalable software, intelligent systems, and digital products that solve real-world problems. Founder of Crafts and Code Studio.
             </p>
           </div>
 
@@ -34,9 +34,10 @@ export function Footer() {
             <ul className="space-y-3">
               {[
                 { name: 'About', href: '#about' },
-                { name: 'Work', href: '#projects' },
+                { name: 'Products', href: '#projects' },
                 { name: 'Services', href: '#services' },
                 { name: 'Process', href: '#process' },
+                { name: 'Stack', href: '#skills' },
                 { name: 'Contact', href: '#contact' },
               ].map((link) => (
                 <li key={link.name}>

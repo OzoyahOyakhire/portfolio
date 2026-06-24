@@ -1,42 +1,42 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'motion/react';
-import { Search, Lightbulb, PenTool, Code2, Rocket } from 'lucide-react';
+import { Scale, Wrench, Gauge, Users, TrendingUp } from 'lucide-react';
 
 const steps = [
   {
-    icon: Search,
+    icon: Scale,
     number: '01',
     title: 'Discovery',
-    description: 'Deep dive into your brand, audience, goals, and competitive landscape to uncover strategic opportunities.',
-    detail: 'Stakeholder interviews, competitor analysis, brand audit, technical requirements',
+    description: 'Deep dive into the problem space — business goals, user needs, technical constraints, and market landscape.',
+    detail: 'Stakeholder interviews, problem definition, technical requirements, feasibility analysis',
   },
   {
-    icon: Lightbulb,
+    icon: TrendingUp,
     number: '02',
     title: 'Strategy',
-    description: 'Define the blueprint — user flows, content strategy, conversion metrics, and technical architecture.',
-    detail: 'Sitemap, user journeys, technical specs, conversion goals, content framework',
+    description: 'Define the product blueprint — architecture decisions, data models, user flows, and success metrics.',
+    detail: 'System architecture, data modeling, API design, conversion goals, tech stack selection',
   },
   {
-    icon: PenTool,
+    icon: Users,
     number: '03',
     title: 'Design',
-    description: 'Craft the visual experience — from wireframes to polished, interactive prototypes that tell your story.',
-    detail: 'Wireframing, UI design, motion design, design systems, prototyping',
+    description: 'Craft the product experience — wireframes, interactive prototypes, design systems, and UX validation.',
+    detail: 'Wireframing, UI design, design systems, prototyping, user testing',
   },
   {
-    icon: Code2,
+    icon: Wrench,
     number: '04',
-    title: 'Development',
-    description: 'Translate design into production-grade code with performance, accessibility, and polish at the core.',
-    detail: 'Component architecture, animation engineering, performance optimization, responsive build',
+    title: 'Engineering',
+    description: 'Build production-grade software with clean architecture, automated testing, and performance at the core.',
+    detail: 'Component architecture, API development, data pipelines, automated testing, performance optimization',
   },
   {
-    icon: Rocket,
+    icon: Gauge,
     number: '05',
-    title: 'Launch',
-    description: 'Ship with confidence — thorough testing, smooth deployment, and continuous iteration based on real data.',
-    detail: 'QA testing, deployment, analytics setup, monitoring, iteration roadmap',
+    title: 'Launch & Iterate',
+    description: 'Ship with confidence, measure real impact, and continuously improve based on data and user feedback.',
+    detail: 'QA testing, deployment pipelines, analytics setup, monitoring, iteration roadmap',
   },
 ];
 
@@ -57,8 +57,8 @@ export function Process() {
             [05] Process
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-7xl font-heading leading-[1.05] max-w-3xl">
-            How I
-            <span className="text-gradient-gold italic"> work</span>
+            How I build
+            <span className="text-gradient-gold italic"> products</span>
           </h2>
         </motion.div>
 

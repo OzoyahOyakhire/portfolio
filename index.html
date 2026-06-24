@@ -12,23 +12,17 @@
   </head>
   <body>
     <div id="root"></div>
-    <div id="custom-cursor" style="position:fixed;top:0;left:0;width:20px;height:20px;border-radius:50%;background:rgba(245,245,245,0.4);pointer-events:none;z-index:9999;mix-blend-mode:difference;transition:width 0.3s,height 0.3s,background 0.3s;transform:translate(-50%,-50%);"></div>
+    <div id="custom-cursor" style="position:fixed;top:0;left:0;width:20px;height:20px;border-radius:50%;background:rgba(245,245,245,0.4);pointer-events:none;z-index:9999;mix-blend-mode:difference;will-change:transform;transform:translate(-50%,-50%) translate(0px,0px);"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script>
       const cursor = document.getElementById('custom-cursor');
-      let cx = 0, cy = 0, tx = 0, ty = 0;
-      document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
-      (function animate() {
-        cx += (tx - cx) * 0.15;
-        cy += (ty - cy) * 0.15;
-        cursor.style.left = cx + 'px';
-        cursor.style.top = cy + 'px';
-        requestAnimationFrame(animate);
-      })();
+      let cx = 0, cy = 0;
+      document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; cursor.style.transform = 'translate(-50%,-50%) translate(' + cx + 'px,' + cy + 'px)'; });
       document.querySelectorAll('a, button, [data-hover]').forEach(el => {
         el.addEventListener('mouseenter', () => { cursor.style.width = '50px'; cursor.style.height = '50px'; cursor.style.background = 'rgba(245,245,245,0.15)'; });
         el.addEventListener('mouseleave', () => { cursor.style.width = '20px'; cursor.style.height = '20px'; cursor.style.background = 'rgba(245,245,245,0.4)'; });
       });
+      document.addEventListener('touchstart', () => { cursor.style.display = 'none'; }, { once: true });
     </script>
   </body>
 </html>

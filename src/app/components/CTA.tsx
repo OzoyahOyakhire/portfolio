@@ -20,7 +20,7 @@ export function CTA() {
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="text-sm font-mono text-gold tracking-[0.2em] uppercase mb-8 block">
-                [08] Contact
+                [09] Contact
               </span>
             </motion.div>
 
@@ -30,9 +30,9 @@ export function CTA() {
               transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="text-4xl md:text-6xl lg:text-8xl font-heading leading-[1.05] mb-8"
             >
-              Have a project
+              Have a product
               <br />
-              <span className="text-gradient-gold italic">in mind?</span>
+              <span className="text-gradient-gold italic">to build?</span>
             </motion.h2>
 
             <motion.p
@@ -41,7 +41,7 @@ export function CTA() {
               transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="text-xl text-foreground/40 max-w-2xl mx-auto mb-12 leading-relaxed"
             >
-              Let's build something exceptional. Whether you need a brand identity, a premium website, or a complete digital experience — I'm ready.
+              Whether you need a SaaS platform, an automation tool, a premium website, or a complete digital product — let's build something that matters.
             </motion.p>
 
             <motion.div

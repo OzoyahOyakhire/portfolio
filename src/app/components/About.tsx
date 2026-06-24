@@ -39,9 +39,11 @@ export function About() {
               [01] About
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading leading-[1.05]">
-              Bridging
-              <span className="text-gradient-gold italic"> creativity</span>
-              <br />and engineering
+              Software developer.
+              <br />
+              <span className="text-gradient-gold italic">Product builder.</span>
+              <br />
+              Problem solver.
             </h2>
           </motion.div>
 
@@ -52,7 +54,7 @@ export function About() {
               transition={{ duration: 1.2, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             >
               <p className="text-xl md:text-2xl text-foreground/60 leading-relaxed font-light">
-                I'm <span className="text-foreground font-medium">Justice Oyakhire</span> — a multidisciplinary creative who refuses to choose between design and code. I believe the best digital products are born at the intersection of aesthetic vision and technical precision.
+                I'm <span className="text-foreground font-medium">Justice Oyakhire</span> — a software developer who operates at the intersection of design, engineering, product thinking, and innovation. I build software that solves real-world problems.
               </p>
             </motion.div>
 
@@ -62,7 +64,7 @@ export function About() {
               transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             >
               <p className="text-lg text-foreground/40 leading-relaxed">
-                As the founder of <span className="text-gold">Crafts and Code Studio</span>, I bring a philosophy that design without engineering is art, and engineering without design is machinery. I create the space where both thrive — building digital experiences that look exceptional and perform exceptionally.
+                As the founder of <span className="text-gold">Crafts and Code Studio</span>, I don't just build websites — I architect scalable software systems, SaaS platforms, automation tools, and intelligent business solutions. From concept to deployment, I handle the full product lifecycle.
               </p>
             </motion.div>
 
@@ -72,7 +74,7 @@ export function About() {
               transition={{ duration: 1.2, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
             >
               <p className="text-lg text-foreground/40 leading-relaxed">
-                Every project I touch is guided by a simple belief: premium brands deserve premium digital experiences. Not just beautiful — strategic. Not just fast — memorable. Not just functional — conversion-focused.
+                Every product I build is designed for scale, usability, and long-term growth. I believe great software is simple, performant, and engineered to create real business outcomes.
               </p>
             </motion.div>
 
@@ -83,8 +85,8 @@ export function About() {
               className="grid grid-cols-3 gap-6 pt-8 border-t border-foreground/5"
             >
               {[
-                { value: `${counters.years}+`, label: 'Years of Craft' },
-                { value: `${counters.projects}+`, label: 'Projects Delivered' },
+                { value: `${counters.years}+`, label: 'Years of Engineering' },
+                { value: `${counters.projects}+`, label: 'Products Shipped' },
                 { value: `${counters.satisfaction}%`, label: 'Client Satisfaction' },
               ].map((stat, i) => (
                 <div key={i} className="text-center lg:text-left">

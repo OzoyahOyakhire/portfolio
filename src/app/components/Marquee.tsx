@@ -2,14 +2,18 @@ import { motion } from 'motion/react';
 
 export function Marquee() {
   const items = [
-    'UI/UX Design',
-    'Brand Identity',
-    'Frontend Engineering',
+    'Software Engineering',
+    'Product Development',
+    'SaaS Platforms',
+    'AI & Automation',
+    'Frontend Architecture',
+    'System Design',
     'Product Strategy',
-    'Conversion Optimization',
-    'Design Systems',
-    'Web Performance',
-    'Interactive Animation',
+    'API Development',
+    'Machine Learning',
+    'Payment Systems',
+    'Data Visualization',
+    'Business Automation',
   ];
 
   return (
