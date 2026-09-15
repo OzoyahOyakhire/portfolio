@@ -1,0 +1,154 @@
+@import 'tailwindcss';
+@import '../styles/logo.css';
+
+/* ---------------------------------------------------------------------------
+   Tokens.
+
+   Plain `@theme` (not `inline`) so each value lands on :root as a real custom
+   property AND registers utilities — `bg-navy`, `text-navy`, `border-navy`.
+   One source of truth for both Tailwind and hand-written CSS.
+   --------------------------------------------------------------------------- */
+@theme {
+  --color-paper: #fbfbf9;
+  --color-bone: #ede9e0;
+  --color-navy: #08275c;
+  --color-ink: #0b0b0b;
+
+  /* Darkened from the #767470 in the design. That value is 4.50:1 on paper —
+     passing AA by a rounding error — and 3.85:1 on bone, which *fails*, and
+     the design puts muted text on bone in the stat band and the process
+     columns. #6B6965 is 5.29:1 on paper and 4.52:1 on bone. */
+  --color-muted: #6b6965;
+
+  --container-editorial: 84rem;
+
+  /* The 10px uppercase line the design repeats everywhere. */
+  --text-label: 0.625rem;
+  --text-label--line-height: 1;
+  --text-label--letter-spacing: 0.18em;
+  --text-label--font-weight: 600;
+
+  /* Fluid display scale, so the Swiss headline holds from 320px to 1920px. */
+  --text-display: clamp(2.5rem, 1rem + 6.2vw, 5.25rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.04em;
+}
+
+/* `inline` here on purpose: these reference variables that `next/font` defines
+   on a class it puts on <html>. A non-inline @theme would resolve them at
+   :root, where they are undefined, and the fonts would silently fall back. */
+@theme inline {
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Custom utilities. `@utility` (not a .class in @layer) is the v4 idiom — it
+   makes them variant-aware (`md:label`) and sorts them with everything else.
+   --------------------------------------------------------------------------- */
+@utility label {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* A full-bleed escape hatch for the rare bleed inside already-contained flow.
+   Note it uses no viewport units: `width: 100vw` includes the scrollbar on
+   Windows Chrome and overflows by ~15px, which is what the old build was
+   hiding with `body { overflow-x: hidden }` — and that hack silently breaks
+   `position: sticky`, because an ancestor with overflow becomes the scroll
+   container. Sections are full-width by default, so this is seldom needed. */
+@utility editorial-grid {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(1.5rem, 1fr)
+    [content-start] min(100% - 3rem, var(--container-editorial)) [content-end]
+    minmax(1.5rem, 1fr) [full-end];
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Stops the 15px jump between a short page and a tall one. */
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* One focus treatment for the whole site. `Band` stamps `data-tone`, so a
+     link inside a navy or ink ground automatically gets a paper ring instead
+     of a navy one — no per-component focus styling anywhere. */
+  :focus-visible {
+    outline: 2px solid var(--color-navy);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  [data-tone='navy'] :focus-visible,
+  [data-tone='ink'] :focus-visible {
+    outline-color: var(--color-paper);
+  }
+
+  /* Anchor targets clear the sticky header. */
+  :target {
+    scroll-margin-top: 6rem;
+  }
+
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Scroll-driven reveal. No JavaScript, runs on the compositor.
+
+   The finished state is the base style and the animation only ever plays where
+   it is supported, so a browser without `animation-timeline` shows the content
+   exactly as it should be. That is the whole reason to prefer this over a JS
+   reveal: `gsap.from()` sets opacity:0 inline and needs JS to undo it, so a
+   script failure leaves the page blank.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 26%;
+    }
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
