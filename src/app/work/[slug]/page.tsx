@@ -121,7 +121,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
 
       <Band as="div" innerClassName="pt-12 pb-16 md:pb-20">
         {project.shot ? (
-          <figure className="mb-12">
+          <figure className={project.architecture ? 'mb-12' : undefined}>
             <Image
               src={project.shot.src}
               alt={project.shot.alt}
@@ -135,7 +135,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
 
         {project.architecture ? (
           <ArchitectureFigure architecture={project.architecture} />
-        ) : (
+        ) : project.shot ? null : (
           <figure className="border border-ink bg-bone px-6 py-8 text-navy">
             <ProjectSketch
               slug={project.slug}

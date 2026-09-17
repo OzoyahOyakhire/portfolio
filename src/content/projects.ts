@@ -1,4 +1,6 @@
 import aquimodaShot from '@/images/work/aquimoda.webp';
+import jobFinderShot from '@/images/work/job-finder.webp';
+import livestockShot from '@/images/work/livestock-cost-estimator.webp';
 import type { Project } from './types';
 
 /**
@@ -13,125 +15,44 @@ export const projects = [
     slug: 'livestock-cost-estimator',
     title: 'Livestock Cost Estimator',
     shortTitle: 'Livestock Estimator',
-    category: 'Intelligent system',
+    category: 'SaaS product',
     year: '2025',
     featured: true,
+    href: 'https://livestock-cost-estimator.vercel.app/',
+    shot: {
+      src: livestockShot,
+      alt: 'The LivestockIQ homepage: the headline “Make Smarter Livestock Investment Decisions” above Start Estimation and Watch Demo buttons.',
+    },
     summary:
-      'Cost forecasting for livestock operations, replacing a spreadsheet with a cell that was just a guess.',
+      'Cost estimation and profit prediction for poultry and cattle farmers, so an investment decision starts from numbers instead of a hunch.',
     hardPart:
-      'Not the model. Getting anyone to trust it. A number with no visible reasoning is worse than the guess it replaced.',
+      'Turning a lot of farm inputs into a flow a farmer will actually finish. The answer was a step-by-step wizard rather than one long form.',
     whatHappened:
-      'In use. Every estimate ships with a range, and the range is the part people trust.',
-    tags: ['React', 'Python', 'PostgreSQL'],
+      'Live. Farmers pick a livestock type, enter their data, review the risk and keep every estimate on a dashboard.',
+    tags: ['React', 'Dashboard', 'Multi-step form'],
 
-    lede: 'Cost forecasting for livestock operations — replacing a spreadsheet whose most important cell was, in the end, a guess.',
+    lede: 'Cost estimation and profit prediction for poultry and cattle farmers, built so the decision starts from numbers rather than a hunch.',
     meta: [
-      { label: 'Role', value: 'All of it — design, build, deploy' },
-      { label: 'Timeline', value: '14 weeks' },
-      { label: 'Stack', value: 'React · Python · PostgreSQL' },
-      { label: 'Status', value: 'Live and in use' },
+      { label: 'Role', value: 'Design and build' },
+      { label: 'Type', value: 'Web application' },
+      { label: 'Livestock', value: 'Poultry · Cattle' },
+      { label: 'Status', value: 'Live' },
     ],
     glance: [
       {
         label: 'The problem',
         value:
-          'Seasonal cost decisions were being made off a spreadsheet with a guessed figure at the top. Everything downstream inherited that guess, and nobody could see it happening.',
+          'Livestock investment decisions were being made on rough guesses about feed, medical and running costs, with no clear view of the profit at the end.',
       },
       {
         label: 'What I built',
         value:
-          'A forecasting service with a trained model behind one endpoint, a nightly feature pipeline, and a dashboard that shows the range and the reasoning alongside the number.',
+          'A four-step estimation wizard (livestock type, input data, risk assessment, review and export) and a dashboard that keeps every past estimate one click away.',
       },
       {
         label: 'What happened',
         value:
-          'It is in use. The estimate ships with a confidence range, and the range turned out to be the part people actually trust.',
-      },
-    ],
-
-    architecture: {
-      caption: 'How it fits together',
-      note: 'One server. That was a constraint before it was a decision.',
-      description:
-        'Architecture diagram. Farm inputs and a scheduled market feed flow into a feature store that is rebuilt nightly and backed by PostgreSQL. The feature store feeds a gradient-boosting model, which sits behind a single predict API, which serves the dashboard. An evaluation notebook reads from the model. The feature store, model, API and notebook all run inside one Python service.',
-      cols: 5,
-      rows: 4,
-      nodes: [
-        { id: 'farm', label: 'Farm inputs', sub: 'herd, feed, timeline', col: 0, row: 0 },
-        { id: 'market', label: 'Market feed', sub: 'pulled on a schedule', col: 0, row: 2 },
-        {
-          id: 'features',
-          label: 'Feature store',
-          sub: 'rebuilt nightly, not on ask',
-          col: 1,
-          row: 1,
-          tone: 'bone',
-        },
-        { id: 'db', label: 'PostgreSQL', sub: 'history + features', col: 1, row: 3 },
-        {
-          id: 'model',
-          label: 'The model',
-          sub: 'gradient boosting',
-          col: 2,
-          row: 1,
-          tone: 'navy',
-        },
-        {
-          id: 'eval',
-          label: 'Eval notebook',
-          sub: 'keeps me honest',
-          col: 2,
-          row: 3,
-          tone: 'ghost',
-        },
-        {
-          id: 'api',
-          label: 'Predict API',
-          sub: 'one endpoint, on purpose',
-          col: 3,
-          row: 1,
-        },
-        {
-          id: 'dashboard',
-          label: 'Dashboard',
-          sub: 'value, range, reasoning',
-          col: 4,
-          row: 1,
-          tone: 'bone',
-        },
-      ],
-      edges: [
-        { from: 'farm', to: 'features', elbow: 'hv' },
-        { from: 'market', to: 'features', elbow: 'hv' },
-        { from: 'features', to: 'model', label: 'features' },
-        { from: 'model', to: 'api', label: 'value + range' },
-        { from: 'api', to: 'dashboard' },
-        { from: 'features', to: 'db' },
-        { from: 'model', to: 'eval', dashed: true },
-      ],
-      boundaries: [
-        {
-          label: 'Python service — one box, one job',
-          nodes: ['features', 'model', 'api', 'eval'],
-        },
-      ],
-    },
-
-    decisions: [
-      {
-        title: 'Boosted trees, not a neural net',
-        turnedDown:
-          'a deep model. There were four hundred rows. It would have memorised them and I would have believed it.',
-      },
-      {
-        title: 'Features built nightly',
-        turnedDown:
-          'computing them per request. Faster to write, and the first real month of use would have ended it.',
-      },
-      {
-        title: 'Always show the range',
-        turnedDown:
-          'a single clean number. It looked better. People trusted the range more, which was the whole objective.',
+          'It is live. Splitting the inputs into steps kept each screen short enough that people get all the way to a result.',
       },
     ],
   },
@@ -140,77 +61,82 @@ export const projects = [
     slug: 'phc-workhub',
     title: 'PHC WorkHub',
     shortTitle: 'PHC WorkHub',
-    category: 'SaaS product',
+    category: 'Team product',
     year: '2025',
+    href: 'https://www.phcworkhub.com/',
     summary:
-      'Document automation and subscription billing for a business drowning in manual PDFs.',
+      'An online document generator for paystubs, invoices, W-2s, 1099s and 20+ other templates. I worked on the frontend and on testing.',
     hardPart:
-      'PDF generation that stays correct under concurrency, and a billing flow that has to survive a failed webhook without double-charging anyone.',
-    whatHappened: 'Replaced a process that used to eat somebody’s afternoon, every afternoon.',
-    tags: ['Node', 'Payments', 'PDF pipeline'],
+      'Long, guided forms with a live PDF preview beside them, where one wrong field ends up on someone’s tax document.',
+    whatHappened:
+      'Live and used by freelancers and small businesses. Alongside frontend work, I wrote unit and integration tests and tested manually.',
+    tags: ['Frontend', 'Unit tests', 'Integration tests'],
 
-    lede: 'Document automation and recurring billing for a business that was generating every PDF by hand.',
+    lede: 'An online document generator for paystubs, invoices, W-2s, 1099s and 20+ other business templates. I was on the team as a frontend developer, and I also worked on testing.',
     meta: [
-      { label: 'Role', value: 'All of it — design, build, deploy' },
-      { label: 'Timeline', value: '9 weeks' },
-      { label: 'Stack', value: 'React · Node · Payment APIs' },
-      { label: 'Status', value: 'In use' },
+      { label: 'Role', value: 'Frontend developer & testing' },
+      { label: 'Team', value: 'Part of a product team' },
+      { label: 'Testing', value: 'Unit · Integration · Manual' },
+      { label: 'Status', value: 'Live' },
     ],
     glance: [
       {
-        label: 'The problem',
+        label: 'The product',
         value:
-          'Documents were assembled by hand, one at a time, and subscriptions were tracked in a spreadsheet beside them. Both scaled by adding afternoons.',
+          'Pick a template, fill in a guided form, review a live preview and download a finished PDF, with no document software and no blank page.',
       },
       {
-        label: 'What I built',
+        label: 'What I did',
         value:
-          'A document pipeline that generates and stores PDFs on demand, wired to a subscription layer that handles renewals, failures and retries without a human watching.',
+          'Built frontend features as part of the team, and wrote unit and integration tests for the code.',
       },
       {
-        label: 'What happened',
+        label: 'How I tested',
         value:
-          'The manual step is gone. The interesting work turned out to be the failure paths — what a half-finished document or a declined renewal should do.',
+          'Automated tests for the logic, plus manual testing across the forms and flows to catch what the automated tests could not see.',
       },
     ],
   },
 
   {
-    slug: 'whatsapp-ordering',
-    title: 'Ordering over WhatsApp',
-    shortTitle: 'WhatsApp Ordering',
-    category: 'Automation',
+    slug: 'job-finder',
+    title: 'JobFinder',
+    shortTitle: 'JobFinder',
+    category: 'Web application',
     year: '2024',
-    summary:
-      'Conversational ordering for small shops that were losing sales inside missed messages.',
+    href: 'https://job-finder-one-ebon.vercel.app/',
+    shot: {
+      src: jobFinderShot,
+      alt: 'The JobFinder homepage: a green banner asking “Looking for a Job?” above two cards, one for developers to browse jobs and one for employers to add a job.',
+    },
+    summary: 'A job board with two sides: developers browse roles, employers post them.',
     hardPart:
-      'What an order should do when someone stops replying halfway through. The bot was never the difficult part.',
-    whatHappened:
-      'An order now survives an interrupted conversation. That was the entire problem.',
-    tags: ['Twilio', 'Node', 'State machine'],
+      'Serving two kinds of user from one small app without either of them landing on screens meant for the other.',
+    whatHappened: 'Live. Browse, post and sign in, all from the same app.',
+    tags: ['React', 'Job listings', 'Auth'],
 
-    lede: 'Conversational ordering for small shops, built on the messaging app their customers already had open.',
+    lede: 'A job board with two sides: developers browse roles, employers sign in and post them.',
     meta: [
-      { label: 'Role', value: 'All of it — design, build, deploy' },
-      { label: 'Timeline', value: '6 weeks' },
-      { label: 'Stack', value: 'Node · Twilio · PostgreSQL' },
-      { label: 'Status', value: 'Shipped' },
+      { label: 'Role', value: 'Design and build' },
+      { label: 'Type', value: 'Web application' },
+      { label: 'Users', value: 'Developers · Employers' },
+      { label: 'Status', value: 'Live' },
     ],
     glance: [
       {
-        label: 'The problem',
+        label: 'The idea',
         value:
-          'Orders arrived as messages, phone calls and follow-ups, and the ones that needed a second reply were the ones that quietly disappeared.',
+          'Keep a job board focused: one clear route for people looking for work and one for people hiring.',
       },
       {
         label: 'What I built',
         value:
-          'A two-way messaging flow backed by an explicit state machine, so every order has a known state and can be resumed from wherever it stalled.',
+          'A homepage that splits the two audiences straight away, a jobs listing with recent roles, a form for employers to add a job, and sign-in.',
       },
       {
-        label: 'What happened',
+        label: 'What I took from it',
         value:
-          'An interrupted conversation no longer loses the order. Modelling the conversation as states rather than messages was the decision that mattered.',
+          'Deciding who a screen is for before designing it made the rest of the app much simpler to build.',
       },
     ],
   },
@@ -255,45 +181,6 @@ export const projects = [
         label: 'What happened',
         value:
           'Live. The lesson that stuck: performance is a design decision made early, not a cleanup task at the end.',
-      },
-    ],
-  },
-
-  {
-    slug: 'spotify-rebuilt',
-    title: 'Spotify, rebuilt',
-    shortTitle: 'Spotify, rebuilt',
-    category: 'Study — not client work',
-    year: '2024',
-    summary:
-      'A streaming client built to find out what breaks when audio state and interface state disagree.',
-    hardPart:
-      'Keeping playback state and interface state in agreement across a queue, a scrubber and a route change.',
-    whatHappened: 'Everything breaks. I know exactly where now, which was the point.',
-    tags: ['React', 'Redux', 'Audio'],
-
-    lede: 'A streaming client rebuilt from scratch. Not original, and originality was never the assignment.',
-    meta: [
-      { label: 'Role', value: 'Study — built alone' },
-      { label: 'Timeline', value: '4 weeks' },
-      { label: 'Stack', value: 'React · Redux · Web Audio' },
-      { label: 'Status', value: 'Learning project' },
-    ],
-    glance: [
-      {
-        label: 'Why I built it',
-        value:
-          'I wanted to know what actually breaks when the audio element and the interface hold two different ideas of what is playing.',
-      },
-      {
-        label: 'What I built',
-        value:
-          'Auth, a queue, a scrubber and playback that survives navigation — with one source of truth for playback state rather than two.',
-      },
-      {
-        label: 'What happened',
-        value:
-          'Everything breaks, and now I know where. Listing it as a study rather than client work is the honest description.',
       },
     ],
   },

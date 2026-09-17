@@ -76,8 +76,8 @@ export interface Decision {
  * four-cell meta row and a three-up glance band. A missing cell is then a
  * compile error rather than a grid that quietly collapses to two columns.
  *
- * Only `architecture` and `decisions` are optional. Four of the five case
- * studies render as title → meta → glance → prev/next, which reads as a
+ * Only `architecture`, `decisions` and `shot` are optional. A case study
+ * without them renders as title → meta → glance → prev/next, which reads as a
  * deliberate short form; making `meta`/`glance` optional instead would mean
  * every page needed a fallback layout for no editorial reason.
  */

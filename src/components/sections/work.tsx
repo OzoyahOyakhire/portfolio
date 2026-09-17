@@ -1,11 +1,39 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from '@/components/icons';
 import { Band } from '@/components/primitives/band';
 import { SectionHeader } from '@/components/primitives/section-header';
 import { TagList } from '@/components/primitives/tag-list';
 import { ProjectSketch } from '@/components/work/sketches';
-import { featuredProject, otherProjects } from '@/content/projects';
+import { featuredProject, otherProjects, projects } from '@/content/projects';
 import type { Project } from '@/content/types';
+
+const numberWords = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+const projectCount = numberWords[projects.length] ?? String(projects.length);
+
+/** A screenshot of the live product where there is one, the line sketch otherwise. */
+function ProjectVisual({
+  project,
+  sizes,
+  sketchClassName,
+}: {
+  project: Project;
+  sizes: string;
+  sketchClassName: string;
+}) {
+  if (project.shot) {
+    return (
+      <Image
+        src={project.shot.src}
+        alt={project.shot.alt}
+        sizes={sizes}
+        placeholder="blur"
+        className="block h-auto w-full border border-ink"
+      />
+    );
+  }
+  return <ProjectSketch slug={project.slug} className={sketchClassName} />;
+}
 
 export function Work() {
   return (
@@ -19,12 +47,12 @@ export function Work() {
         id="work-title"
         number="04"
         label="Selected work"
-        caption="Five projects — what it was, what was hard, what happened"
+        caption={`${projectCount} projects — what it was, what was hard, what happened`}
       />
 
       <FeaturedCard project={featuredProject} />
 
-      <ul className="mt-7 grid gap-7 md:grid-cols-2">
+      <ul className="mt-7 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
         {otherProjects.map((project) => (
           <li key={project.slug} className="reveal">
             <ProjectCard project={project} />
@@ -38,8 +66,12 @@ export function Work() {
 function FeaturedCard({ project }: { project: Project }) {
   return (
     <article className="reveal mt-9 grid border border-ink lg:grid-cols-[minmax(0,40rem)_1fr]">
-      <div className="border-b border-ink bg-bone px-4 py-6 text-navy lg:border-r lg:border-b-0 lg:p-0">
-        <ProjectSketch slug={project.slug} className="block h-auto w-full" />
+      <div className="flex items-center border-b border-ink bg-bone p-4 text-navy md:p-6 lg:border-r lg:border-b-0">
+        <ProjectVisual
+          project={project}
+          sizes="(min-width: 1024px) 40rem, calc(100vw - 3rem)"
+          sketchClassName="block h-auto w-full"
+        />
       </div>
 
       <div className="flex flex-col p-6 md:p-8 lg:py-9 lg:pr-9 lg:pl-11">
@@ -94,9 +126,13 @@ function ProjectCard({ project }: { project: Project }) {
       className={`group relative flex h-full flex-col border border-ink transition-colors hover:bg-bone/40 ${isStudy ? 'border-dashed' : ''}`}
     >
       <div
-        className={`border-b border-ink bg-bone px-4 py-3 text-navy ${isStudy ? 'border-dashed' : ''}`}
+        className={`border-b border-ink bg-bone text-navy ${project.shot ? 'p-4' : 'px-4 py-3'} ${isStudy ? 'border-dashed' : ''}`}
       >
-        <ProjectSketch slug={project.slug} className="block h-24 w-full md:h-28" />
+        <ProjectVisual
+          project={project}
+          sizes="(min-width: 1024px) 26rem, (min-width: 768px) 50vw, calc(100vw - 3rem)"
+          sketchClassName="block h-24 w-full md:h-28"
+        />
       </div>
 
       <div className="flex flex-1 flex-col p-5 md:p-6">

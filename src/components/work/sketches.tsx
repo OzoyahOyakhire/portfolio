@@ -145,53 +145,6 @@ const sketches: Record<string, Sketch> = {
     ),
   },
 
-  'whatsapp-ordering': {
-    viewBox: '0 0 640 128',
-    label:
-      'Sketch of the ordering conversation: alternating message bubbles between a customer and the shop.',
-    Art: () => (
-      <>
-        <rect
-          x="200"
-          y="14"
-          width="240"
-          height="100"
-          fill="var(--color-paper)"
-          strokeWidth="1.2"
-        />
-        <rect
-          x="216"
-          y="30"
-          width="130"
-          height="20"
-          rx="10"
-          fill="currentColor"
-          fillOpacity="0.12"
-          strokeWidth="1"
-        />
-        <rect
-          x="294"
-          y="58"
-          width="130"
-          height="20"
-          rx="10"
-          fill="var(--color-paper)"
-          strokeWidth="1"
-        />
-        <rect
-          x="216"
-          y="86"
-          width="104"
-          height="20"
-          rx="10"
-          fill="currentColor"
-          fillOpacity="0.12"
-          strokeWidth="1"
-        />
-      </>
-    ),
-  },
-
   'aquimoda-london': {
     viewBox: '0 0 640 128',
     label:
@@ -222,43 +175,6 @@ const sketches: Record<string, Sketch> = {
           <line x1="240" y1="96" x2="386" y2="96" />
         </g>
         <rect x="436" y="60" width="140" height="38" strokeWidth="1" />
-      </>
-    ),
-  },
-
-  'spotify-rebuilt': {
-    viewBox: '0 0 640 128',
-    label:
-      'Sketch of the streaming client: a play button, an audio waveform and a scrubber control.',
-    Art: () => (
-      <>
-        <rect
-          x="120"
-          y="14"
-          width="400"
-          height="100"
-          fill="var(--color-paper)"
-          strokeWidth="1.2"
-          strokeDasharray="5 5"
-        />
-        <circle cx="180" cy="64" r="22" strokeWidth="1.2" />
-        <polygon
-          points="174,54 194,64 174,74"
-          fill="currentColor"
-          fillOpacity="0.4"
-          stroke="none"
-        />
-        <g strokeWidth="1.4" opacity="0.6">
-          <line x1="228" y1="72" x2="228" y2="56" />
-          <line x1="244" y1="76" x2="244" y2="52" />
-          <line x1="260" y1="68" x2="260" y2="60" />
-          <line x1="276" y1="80" x2="276" y2="48" />
-          <line x1="292" y1="72" x2="292" y2="56" />
-          <line x1="308" y1="78" x2="308" y2="50" />
-          <line x1="324" y1="66" x2="324" y2="62" />
-          <line x1="340" y1="76" x2="340" y2="52" />
-        </g>
-        <rect x="376" y="52" width="120" height="24" rx="12" strokeWidth="1" />
       </>
     ),
   },

@@ -4,9 +4,8 @@ export const about = {
   headline: 'Design and engineering, from the same pair of hands.',
 
   body: [
-    'I’m Ozoyah (Ozed). I started in design, because I wanted things to look right. Then I learned to build them, and looking right stopped being enough — the moment something broke I had no idea why.',
-    'So I went down a layer. Then another. Now I take a product from the first sketch to the thing running in production, and I understand every step in between — mostly because I have been stuck on all of them.',
-    'I work as Crafts and Code Studio, but there is no “we”. It is me. That is usually the point — you talk to the person writing the code, and nothing gets lost between the brief and the build.',
+    'I’m Ozoyah, you can call me Ozed. I started as a frontend developer, building things that worked. After a while, working wasn’t enough, I wanted what I built to look as good as it ran, so I started learning design.',
+    'Now the two happen together. I take a product from the first sketch to the thing running in production, and I understand every step in between mostly because I have been stuck on all of them.',
   ],
 
   /** Rendered with the studio name picked out in navy. */
@@ -21,7 +20,7 @@ export const about = {
 
   stats: [
     { value: '3', label: 'years building for clients', note: 'the first one barely counts' },
-    { value: '5', label: 'products shipped and in use', note: 'all five are on this site' },
+    { value: '4', label: 'projects live right now', note: 'all four are on this site' },
     { value: '2', label: 'I stopped on purpose', note: 'and can tell you exactly why' },
   ],
 
