@@ -1,3 +1,4 @@
+import { stagger } from '@/lib/stagger';
 import type { NumberedItem } from '@/content/types';
 import { TagList } from './tag-list';
 
@@ -14,14 +15,15 @@ interface NumberedListProps {
 export function NumberedList({ items }: NumberedListProps) {
   return (
     <ol className="border-t border-current/20 [counter-reset:row]">
-      {items.map((item) => (
+      {items.map((item, i) => (
         <li
           key={item.title}
+          style={stagger(i)}
           className="reveal grid grid-cols-1 gap-x-8 gap-y-3 border-b border-current/10 py-6 last:border-b-0 md:grid-cols-[5rem_18rem_1fr] md:py-7 lg:grid-cols-[5rem_20rem_1fr_13rem]"
         >
           <span
             aria-hidden="true"
-            className="font-display text-[2.5rem] leading-none font-extrabold tracking-tighter text-navy/25 tabular-nums [counter-increment:row] before:content-[counter(row,decimal-leading-zero)]"
+            className="font-display text-[2.5rem] leading-none font-extrabold tracking-tighter text-accent/25 tabular-nums [counter-increment:row] before:content-[counter(row,decimal-leading-zero)]"
           />
           <h3 className="font-display text-2xl leading-tight font-bold tracking-tight md:text-[1.7rem]">
             {item.title}

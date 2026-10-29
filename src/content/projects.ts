@@ -1,22 +1,16 @@
 import aquimodaShot from '@/images/work/aquimoda.webp';
 import jobFinderShot from '@/images/work/job-finder.webp';
 import livestockShot from '@/images/work/livestock-cost-estimator.webp';
+import phcShot from '@/images/work/phc-workhub.webp';
 import type { Project } from './types';
 
-/**
- * `as const satisfies readonly Project[]` on purpose, in that order:
- * `satisfies` alone would check the shape but widen every literal, losing the
- * `ProjectSlug` union; `as const` alone preserves literals but checks nothing.
- * Together you get full structural validation *and* slugs that `typedRoutes`
- * can use to fail the build on a broken `/work/…` link.
- */
 export const projects = [
   {
     slug: 'livestock-cost-estimator',
     title: 'Livestock Cost Estimator',
     shortTitle: 'Livestock Estimator',
     category: 'SaaS product',
-    year: '2025',
+    year: '2026',
     featured: true,
     href: 'https://livestock-cost-estimator.vercel.app/',
     shot: {
@@ -64,6 +58,10 @@ export const projects = [
     category: 'Team product',
     year: '2025',
     href: 'https://www.phcworkhub.com/',
+    shot: {
+      src: phcShot,
+      alt: 'The PHC WorkHub homepage: the headline “Free Online Document Generator for Paystubs, Invoices, W-2 Forms & More” above a template search bar.',
+    },
     summary:
       'An online document generator for paystubs, invoices, W-2s, 1099s and 20+ other templates. I worked on the frontend and on testing.',
     hardPart:
@@ -112,7 +110,7 @@ export const projects = [
     summary: 'A job board with two sides: developers browse roles, employers post them.',
     hardPart:
       'Serving two kinds of user from one small app without either of them landing on screens meant for the other.',
-    whatHappened: 'Live. Browse, post and sign in, all from the same app.',
+    whatHappened: 'Browse, post and sign in, all from the same app.',
     tags: ['React', 'Job listings', 'Auth'],
 
     lede: 'A job board with two sides: developers browse roles, employers sign in and post them.',

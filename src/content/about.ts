@@ -8,7 +8,6 @@ export const about = {
     'Now the two happen together. I take a product from the first sketch to the thing running in production, and I understand every step in between mostly because I have been stuck on all of them.',
   ],
 
-  /** Rendered with the studio name picked out in navy. */
   studioSentenceIndex: 2,
 
   facts: [

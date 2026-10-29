@@ -1,0 +1,111 @@
+/* ---------------------------------------------------------------------------
+   Scroll-driven motion. No JavaScript, no observers — the compositor runs it.
+
+   Every rule here is doubly guarded: `prefers-reduced-motion: no-preference`
+   and `@supports (animation-timeline: view())`. The finished state is always
+   the base style, so a browser without scroll timelines (and anyone who asks
+   for less motion) gets the page exactly as designed, just static. That is the
+   reason to prefer this over a JS reveal: `gsap.from()` writes opacity:0 inline
+   and needs JS to undo it, so one failed script leaves the page blank.
+
+   `--i` on an element staggers it by shifting its range down the scroll, so
+   items in a row resolve one after another as the row crosses the viewport.
+   Set it with `stagger(i)` from lib/stagger.
+   --------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Blocks: fade and rise as they enter. */
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry calc(6% + var(--i, 0) * 4%) cover calc(24% + var(--i, 0) * 4%);
+    }
+
+    /* Display headlines: rise out of a clipped slot, like the intro's name.
+       The slot pads and then pulls back the same amount, so descenders are
+       never cut once the line has settled. */
+    .reveal-slot {
+      overflow: clip;
+      padding-bottom: 0.12em;
+      margin-bottom: -0.12em;
+    }
+
+    .reveal-line {
+      display: block;
+      animation: reveal-line linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover calc(18% + var(--i, 0) * 5%);
+    }
+
+    /* The 2px rule over each section header draws left to right. */
+    .rule-draw {
+      transform-origin: left;
+      animation: rule-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 95%;
+    }
+
+    /* Screenshots drift slowly against their frame — a little parallax, scaled
+       up first so the frame never shows through at either end. */
+    .drift {
+      animation: drift linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+
+    /* Reading progress, drawn along the header's bottom edge. */
+    .scroll-progress {
+      transform-origin: left;
+      animation: scroll-progress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-line {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1.06) translateY(1.4%);
+  }
+  to {
+    transform: scale(1.06) translateY(-1.4%);
+  }
+}
+
+@keyframes scroll-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

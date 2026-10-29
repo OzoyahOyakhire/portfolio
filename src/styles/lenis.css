@@ -1,0 +1,34 @@
+/* ---------------------------------------------------------------------------
+   Lenis, the wheel smoothing in components/site/smooth-scroll.tsx.
+
+   It stamps `lenis lenis-smooth` on <html> once it is running, so every rule
+   here applies only when it is actually active — with JavaScript off, reduced
+   motion on, or before hydration, none of this is in play and the base
+   `scroll-behavior: smooth` in globals.css handles anchors instead.
+   --------------------------------------------------------------------------- */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+/* Native smooth scrolling and Lenis fight over the same scroll position. */
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* Stops a nested scroller from chaining its overscroll to the page. */
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* While the drawer holds Lenis stopped, the page behind it cannot scroll.
+   `clip` rather than `hidden`: hidden would make <html> a scroll container
+   and break the sticky header. */
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}

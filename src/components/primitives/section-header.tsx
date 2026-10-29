@@ -23,7 +23,13 @@ interface SectionHeaderProps {
  */
 export function SectionHeader({ number, label, caption, id, className }: SectionHeaderProps) {
   return (
-    <header className={cx('border-t-2 border-current pt-3.5', className)}>
+    <header className={cx('relative border-t-2 border-current/15 pt-3.5', className)}>
+      {/* The drawn rule sits over the static one, which stays as the fallback
+          wherever scroll timelines are unavailable. */}
+      <span
+        aria-hidden="true"
+        className="rule-draw absolute inset-x-0 -top-0.5 block h-0.5 bg-current"
+      />
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
         <h2 id={id} className="flex items-baseline gap-5">
           <span className="font-display text-2xl font-extrabold tracking-tighter tabular-nums opacity-90">

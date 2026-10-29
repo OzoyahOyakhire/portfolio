@@ -15,8 +15,8 @@ export const site = {
   hero: {
     eyebrow: 'Software developer',
     headline: ['I build the software', 'businesses actually', 'run on.'],
-    lede: 'Web platforms, automation that removes real work, and systems with a model inside. Design and engineering from the same pair of hands, which is usually why the two agree with each other.',
-    capabilities: ['Web platforms', 'Automation', 'Intelligent systems', 'Product design'],
+    lede: 'Web Application, automation that removes real work, and systems with a model inside. Design and engineering from the same pair of hands, which is usually why the two agree with each other.',
+    capabilities: ['Web Application', 'Automation', 'Intelligent systems', 'Product design'],
     recentlyShipped: ['Livestock Cost Estimator', 'PHC WorkHub', 'Aquimoda London'],
   },
 
@@ -36,10 +36,9 @@ export const site = {
   /** Root-relative so they work from a case-study page as well as the home page. */
   nav: [
     { label: 'Work', href: '/#work' },
-    { label: 'Services', href: '/#services' },
-    { label: 'Process', href: '/#process' },
-    { label: 'Stack', href: '/#stack' },
     { label: 'About', href: '/#about' },
+    { label: 'Stack', href: '/#stack' },
+    { label: 'Contact', href: '/#contact' },
   ],
 
   contactHref: '/#contact',

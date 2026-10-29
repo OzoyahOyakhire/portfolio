@@ -1,4 +1,5 @@
 import { Band } from '@/components/primitives/band';
+import { stagger } from '@/lib/stagger';
 import { NumberedList } from '@/components/primitives/numbered-list';
 import { SectionHeader } from '@/components/primitives/section-header';
 import { process } from '@/content/process';
@@ -26,7 +27,7 @@ export function Process() {
       id="process"
       tone="bone"
       aria-labelledby="process-title"
-      className="border-t border-ink"
+      className="border-t border-fg"
       innerClassName="pt-12 pb-16 md:pb-20"
     >
       <SectionHeader
@@ -37,18 +38,19 @@ export function Process() {
       />
 
       <ol className="mt-9 grid gap-8 [counter-reset:step] md:grid-cols-2 lg:grid-cols-5 lg:gap-0">
-        {process.steps.map((step) => (
+        {process.steps.map((step, i) => (
           <li
             key={step.title}
-            className="reveal border-ink/15 lg:px-7 lg:not-last:border-r lg:first:pl-0 lg:last:pr-0"
+            style={stagger(i)}
+            className="reveal border-fg/15 lg:px-7 lg:not-last:border-r lg:first:pl-0 lg:last:pr-0"
           >
-            <p className="flex items-center gap-2.5 text-navy">
+            <p className="flex items-center gap-2.5 text-accent">
               <span
                 aria-hidden="true"
                 className={
                   'open' in step && step.open
-                    ? 'block size-[11px] border-2 border-navy'
-                    : 'block size-[11px] bg-navy'
+                    ? 'block size-[11px] border-2 border-accent'
+                    : 'block size-[11px] bg-accent'
                 }
               />
               <span className="label [counter-increment:step] before:content-['Step_'_counter(step,decimal-leading-zero)]" />
@@ -57,7 +59,7 @@ export function Process() {
               {step.title}
             </h3>
             {/* On bone: ink/75 rather than muted, which fails AA against bone. */}
-            <p className="mt-2.5 text-[0.95rem] leading-relaxed text-ink/75">
+            <p className="mt-2.5 text-[0.95rem] leading-relaxed text-fg/75">
               <Emphasised text={step.body} />
             </p>
           </li>

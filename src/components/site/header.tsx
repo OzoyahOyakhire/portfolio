@@ -16,11 +16,11 @@ export function Header() {
     <header
       data-site-header
       data-tone="paper"
-      className="sticky top-0 z-40 border-b border-ink bg-paper"
+      className="sticky top-0 z-40 border-b border-fg bg-ground"
     >
       <div className="mx-auto flex h-16 max-w-editorial items-center justify-between px-6 md:h-[4.75rem] md:px-10">
         <SectionLink href="/" className="-ml-1 flex items-center gap-2 p-1">
-          <Logo size={38} animate className="text-navy" />
+          <Logo size={38} className="text-accent" />
           <span className="font-display text-base font-bold tracking-tight">{site.name}</span>
         </SectionLink>
 
@@ -30,7 +30,7 @@ export function Header() {
               <li key={item.href}>
                 <SectionLink
                   href={item.href}
-                  className="label text-muted transition-colors duration-200 hover:text-ink"
+                  className="label text-muted transition-colors duration-200 hover:text-fg"
                 >
                   {item.label}
                 </SectionLink>
@@ -39,7 +39,7 @@ export function Header() {
             <li>
               <SectionLink
                 href={site.contactHref}
-                className="block bg-navy px-5 py-3 label text-paper transition-colors duration-200 hover:bg-ink"
+                className="block bg-accent px-5 py-3 label text-ground transition-colors duration-200 hover:bg-fg"
               >
                 Start a project
               </SectionLink>
@@ -49,6 +49,13 @@ export function Header() {
 
         <MobileNav />
       </div>
+
+      {/* Reading progress. Purely decorative, and only ever drawn where scroll
+          timelines exist — elsewhere it stays a zero-width line. */}
+      <span
+        aria-hidden="true"
+        className="scroll-progress absolute inset-x-0 -bottom-px block h-px origin-left scale-x-0 bg-accent"
+      />
     </header>
   );
 }

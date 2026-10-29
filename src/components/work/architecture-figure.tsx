@@ -24,13 +24,18 @@ const tones: Record<
   NodeTone,
   { fill: string; stroke: string; title: string; sub: string; dash?: string }
 > = {
-  paper: { fill: 'fill-paper', stroke: 'stroke-ink', title: 'fill-ink', sub: 'fill-muted' },
-  bone: { fill: 'fill-bone', stroke: 'stroke-ink', title: 'fill-ink', sub: 'fill-muted' },
-  navy: { fill: 'fill-navy', stroke: 'stroke-navy', title: 'fill-paper', sub: 'fill-paper/75' },
+  paper: { fill: 'fill-ground', stroke: 'stroke-fg', title: 'fill-fg', sub: 'fill-muted' },
+  bone: { fill: 'fill-raised', stroke: 'stroke-fg', title: 'fill-fg', sub: 'fill-muted' },
+  navy: {
+    fill: 'fill-accent',
+    stroke: 'stroke-accent',
+    title: 'fill-ground',
+    sub: 'fill-ground/75',
+  },
   ghost: {
     fill: 'fill-none',
     stroke: 'stroke-muted',
-    title: 'fill-ink/80',
+    title: 'fill-fg/80',
     sub: 'fill-muted',
     dash: '6 5',
   },
@@ -48,7 +53,7 @@ export function ArchitectureFigure({ architecture }: { architecture: Architectur
 
   return (
     <figure>
-      <figcaption className="flex flex-col gap-2 border-b-2 border-ink pb-3.5 sm:flex-row sm:items-baseline sm:justify-between">
+      <figcaption className="flex flex-col gap-2 border-b-2 border-fg pb-3.5 sm:flex-row sm:items-baseline sm:justify-between">
         <span className="label">{architecture.caption}</span>
         <span className="label text-muted">{architecture.note}</span>
       </figcaption>
@@ -77,7 +82,7 @@ export function ArchitectureFigure({ architecture }: { architecture: Architectur
               refY="3.2"
               orient="auto"
             >
-              <path d="M0,0 L9,3.2 L0,6.4 z" className="fill-ink" />
+              <path d="M0,0 L9,3.2 L0,6.4 z" className="fill-fg" />
             </marker>
           </defs>
 
@@ -98,14 +103,14 @@ export function ArchitectureFigure({ architecture }: { architecture: Architectur
                   y={top}
                   width={right - left}
                   height={bottom - top}
-                  className="fill-none stroke-navy/45"
+                  className="fill-none stroke-accent/45"
                   strokeWidth="1"
                   strokeDasharray="5 5"
                 />
                 <text
                   x={left + 12}
                   y={top + 20}
-                  className="fill-navy font-sans text-[9px] font-semibold tracking-[0.14em] uppercase"
+                  className="fill-accent font-sans text-[9px] font-semibold tracking-[0.14em] uppercase"
                 >
                   {boundary.label}
                 </text>
@@ -117,7 +122,7 @@ export function ArchitectureFigure({ architecture }: { architecture: Architectur
             const from = byId.get(edge.from);
             const to = byId.get(edge.to);
             if (!from || !to) return null;
-            const stroke = edge.dashed ? 'stroke-muted' : 'stroke-ink';
+            const stroke = edge.dashed ? 'stroke-muted' : 'stroke-fg';
             const dash = edge.dashed ? '6 5' : undefined;
             const marker = edge.dashed ? undefined : 'url(#arch-arrow)';
 

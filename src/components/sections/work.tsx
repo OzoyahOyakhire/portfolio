@@ -7,11 +7,11 @@ import { TagList } from '@/components/primitives/tag-list';
 import { ProjectSketch } from '@/components/work/sketches';
 import { featuredProject, otherProjects, projects } from '@/content/projects';
 import type { Project } from '@/content/types';
+import { stagger } from '@/lib/stagger';
 
 const numberWords = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
 const projectCount = numberWords[projects.length] ?? String(projects.length);
 
-/** A screenshot of the live product where there is one, the line sketch otherwise. */
 function ProjectVisual({
   project,
   sizes,
@@ -22,14 +22,17 @@ function ProjectVisual({
   sketchClassName: string;
 }) {
   if (project.shot) {
+    // The frame clips; the image drifts slowly inside it as the card passes.
     return (
-      <Image
-        src={project.shot.src}
-        alt={project.shot.alt}
-        sizes={sizes}
-        placeholder="blur"
-        className="block h-auto w-full border border-ink"
-      />
+      <span className="block w-full overflow-clip border border-fg">
+        <Image
+          src={project.shot.src}
+          alt={project.shot.alt}
+          sizes={sizes}
+          placeholder="blur"
+          className="drift block h-auto w-full"
+        />
+      </span>
     );
   }
   return <ProjectSketch slug={project.slug} className={sketchClassName} />;
@@ -40,7 +43,7 @@ export function Work() {
     <Band
       id="work"
       aria-labelledby="work-title"
-      className="border-t border-ink"
+      className="border-t border-fg"
       innerClassName="pt-16 pb-20 md:pt-20 md:pb-24"
     >
       <SectionHeader
@@ -53,8 +56,8 @@ export function Work() {
       <FeaturedCard project={featuredProject} />
 
       <ul className="mt-7 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-        {otherProjects.map((project) => (
-          <li key={project.slug} className="reveal">
+        {otherProjects.map((project, i) => (
+          <li key={project.slug} style={stagger(i)} className="reveal">
             <ProjectCard project={project} />
           </li>
         ))}
@@ -65,8 +68,8 @@ export function Work() {
 
 function FeaturedCard({ project }: { project: Project }) {
   return (
-    <article className="reveal mt-9 grid border border-ink lg:grid-cols-[minmax(0,40rem)_1fr]">
-      <div className="flex items-center border-b border-ink bg-bone p-4 text-navy md:p-6 lg:border-r lg:border-b-0">
+    <article className="reveal mt-9 grid border border-fg lg:grid-cols-[minmax(0,40rem)_1fr]">
+      <div className="flex items-center border-b border-fg bg-raised p-4 text-accent md:p-6 lg:border-r lg:border-b-0">
         <ProjectVisual
           project={project}
           sizes="(min-width: 1024px) 40rem, calc(100vw - 3rem)"
@@ -76,7 +79,7 @@ function FeaturedCard({ project }: { project: Project }) {
 
       <div className="flex flex-col p-6 md:p-8 lg:py-9 lg:pr-9 lg:pl-11">
         <p className="flex items-baseline justify-between gap-4">
-          <span className="label text-navy">{project.category}</span>
+          <span className="label text-accent">{project.category}</span>
           <span className="label text-muted">{project.year}</span>
         </p>
         <h3 className="mt-3.5 font-display text-[2.1rem] leading-[1.03] font-extrabold tracking-tight md:text-[2.4rem]">
@@ -85,13 +88,13 @@ function FeaturedCard({ project }: { project: Project }) {
         <p className="mt-3.5 text-[1.06rem] leading-relaxed text-muted">{project.summary}</p>
 
         <dl>
-          <div className="mt-5 border-t border-ink/15 pt-4">
+          <div className="mt-5 border-t border-fg/15 pt-4">
             <dt className="label text-muted">The hard part</dt>
             <dd className="mt-2 leading-relaxed text-muted">{project.hardPart}</dd>
           </div>
-          <div className="mt-4 border-t border-ink/15 pt-4">
+          <div className="mt-4 border-t border-fg/15 pt-4">
             <dt className="label text-muted">What happened</dt>
-            <dd className="mt-2 leading-relaxed font-medium text-navy">
+            <dd className="mt-2 leading-relaxed font-medium text-accent">
               {project.whatHappened}
             </dd>
           </div>
@@ -101,7 +104,7 @@ function FeaturedCard({ project }: { project: Project }) {
           <TagList items={project.tags} />
           <Link
             href={`/work/${project.slug}`}
-            className="inline-flex items-center gap-2 bg-navy px-4.5 py-3 label text-paper transition-colors hover:bg-ink"
+            className="inline-flex items-center gap-2 bg-accent px-4.5 py-3 label text-ground transition-colors hover:bg-fg"
           >
             Read the teardown <ArrowRight width={12} height={12} />
             <span className="sr-only">: {project.title}</span>
@@ -123,10 +126,10 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <article
-      className={`group relative flex h-full flex-col border border-ink transition-colors hover:bg-bone/40 ${isStudy ? 'border-dashed' : ''}`}
+      className={`group relative flex h-full flex-col border border-fg transition-colors hover:bg-raised/40 ${isStudy ? 'border-dashed' : ''}`}
     >
       <div
-        className={`border-b border-ink bg-bone text-navy ${project.shot ? 'p-4' : 'px-4 py-3'} ${isStudy ? 'border-dashed' : ''}`}
+        className={`border-b border-fg bg-raised text-accent ${project.shot ? 'p-4' : 'px-4 py-3'} ${isStudy ? 'border-dashed' : ''}`}
       >
         <ProjectVisual
           project={project}
@@ -137,7 +140,7 @@ function ProjectCard({ project }: { project: Project }) {
 
       <div className="flex flex-1 flex-col p-5 md:p-6">
         <p className="flex items-baseline justify-between gap-4">
-          <span className={`label ${isStudy ? 'text-muted' : 'text-navy'}`}>
+          <span className={`label ${isStudy ? 'text-muted' : 'text-accent'}`}>
             {project.category}
           </span>
           <span className="label text-muted">{project.year}</span>
@@ -151,7 +154,7 @@ function ProjectCard({ project }: { project: Project }) {
           </Link>
         </h3>
         <p className="mt-2 leading-relaxed text-muted">{project.summary}</p>
-        <p className="mt-3 leading-snug font-medium text-navy">{project.whatHappened}</p>
+        <p className="mt-3 leading-snug font-medium text-accent">{project.whatHappened}</p>
 
         <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-5">
           <TagList items={project.tags} />
@@ -160,7 +163,7 @@ function ProjectCard({ project }: { project: Project }) {
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative z-10 inline-flex items-center gap-1.5 label text-navy hover:underline"
+              className="relative z-10 inline-flex items-center gap-1.5 label text-accent hover:underline"
             >
               Live site <ArrowUpRight width={11} height={11} />
               <span className="sr-only">(opens in a new tab)</span>

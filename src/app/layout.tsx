@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
-import { Footer } from '@/components/site/footer';
-import { Header } from '@/components/site/header';
-import { LogoDefs } from '@/components/site/logo';
+import { SiteFooter } from '@/components/site/site-footer';
+import { SiteHeader } from '@/components/site/site-header';
+import { SmoothScroll } from '@/components/site/smooth-scroll';
 import { site } from '@/content/site';
-import { bricolage, instrument } from '@/lib/fonts';
+import { manrope, plexMono, unbounded } from '@/lib/fonts';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#fbfbf9',
-  colorScheme: 'light',
+  themeColor: '#0b0b0c',
+  colorScheme: 'dark',
 };
 
 const personJsonLd = {
@@ -44,18 +44,21 @@ const personJsonLd = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${instrument.variable}`}>
+    <html
+      lang="en"
+      className={`${unbounded.variable} ${manrope.variable} ${plexMono.variable}`}
+    >
       <body className="font-sans">
         <a
           href="#main"
-          className="sr-only z-50 bg-paper px-4 py-3 label text-navy focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-50 bg-ground px-4 py-3 label text-accent focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Skip to content
         </a>
-        <LogoDefs />
-        <Header />
+        <SmoothScroll />
+        <SiteHeader />
         <main id="main">{children}</main>
-        <Footer />
+        <SiteFooter />
         <script
           type="application/ld+json"
           // Static, author-controlled JSON; nothing user-supplied reaches it.

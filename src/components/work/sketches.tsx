@@ -57,7 +57,7 @@ const sketches: Record<string, Sketch> = {
           y="40"
           width="548"
           height="292"
-          fill="var(--color-paper)"
+          fill="var(--color-ground)"
           strokeWidth="1.2"
         />
         <line x1="46" y1="76" x2="594" y2="76" strokeWidth="1" />
@@ -114,7 +114,7 @@ const sketches: Record<string, Sketch> = {
           y="18"
           width="200"
           height="92"
-          fill="var(--color-paper)"
+          fill="var(--color-ground)"
           strokeWidth="1.2"
         />
         <g strokeWidth="1" opacity="0.55">
@@ -138,7 +138,7 @@ const sketches: Record<string, Sketch> = {
           y="30"
           width="72"
           height="68"
-          fill="var(--color-paper)"
+          fill="var(--color-ground)"
           strokeWidth="1.2"
         />
       </>
@@ -156,7 +156,7 @@ const sketches: Record<string, Sketch> = {
           y="14"
           width="560"
           height="100"
-          fill="var(--color-paper)"
+          fill="var(--color-ground)"
           strokeWidth="1.2"
         />
         <line x1="40" y1="42" x2="600" y2="42" strokeWidth="1" />
@@ -190,7 +190,7 @@ const generic: Sketch = {
         y="14"
         width="400"
         height="100"
-        fill="var(--color-paper)"
+        fill="var(--color-ground)"
         strokeWidth="1.2"
       />
       <line x1="120" y1="40" x2="520" y2="40" strokeWidth="1" />

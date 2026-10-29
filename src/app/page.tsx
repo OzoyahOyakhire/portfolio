@@ -1,22 +1,16 @@
-import { About } from '@/components/sections/about';
-import { Contact, Testimonials } from '@/components/sections/contact';
-import { Hero } from '@/components/sections/hero';
-import { Principles, Stack } from '@/components/sections/principles';
-import { Process, Services } from '@/components/sections/services';
-import { Work } from '@/components/sections/work';
+import { About, Stack } from '@/components/home/about-stack';
+import { Hero } from '@/components/home/hero';
+import { WorkFan } from '@/components/home/work-fan';
+import { WorkList } from '@/components/home/work-list';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <WorkFan />
+      <WorkList />
       <About />
-      <Services />
-      <Process />
-      <Work />
-      <Principles />
       <Stack />
-      <Testimonials />
-      <Contact />
     </>
   );
 }

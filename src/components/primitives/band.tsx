@@ -4,10 +4,10 @@ import { cx } from '@/lib/cx';
 export type Tone = 'paper' | 'bone' | 'navy' | 'ink';
 
 const grounds: Record<Tone, string> = {
-  paper: 'bg-paper text-ink',
-  bone: 'bg-bone text-ink',
-  navy: 'bg-navy text-paper',
-  ink: 'bg-ink text-paper',
+  paper: 'bg-ground text-fg',
+  bone: 'bg-raised text-fg',
+  navy: 'bg-accent text-ground',
+  ink: 'bg-fg text-ground',
 };
 
 interface BandProps extends Omit<ComponentPropsWithoutRef<'section'>, 'className'> {
