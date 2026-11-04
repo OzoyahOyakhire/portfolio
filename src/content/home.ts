@@ -13,6 +13,11 @@ export const home = {
   hero: {
     /** One entry per line; the last line is set in the accent colour. */
     headline: ['I design and build', 'software people', 'actually use.'],
+    /** The headline word that cycles, and what it cycles through (first = resting). */
+    rotating: {
+      word: 'software',
+      words: ['software', 'websites', 'web apps'],
+    },
     intro: [
       'I’m Ozoyah Oyakhire (Ozed), a software developer who cares about how things work just as much as how they look. I design and build ',
       { text: 'web apps', project: 'job-finder' },

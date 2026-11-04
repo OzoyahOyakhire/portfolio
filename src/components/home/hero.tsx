@@ -2,19 +2,20 @@ import Image from 'next/image';
 import { SectionLink } from '@/components/site/section-link';
 import { home } from '@/content/home';
 import { getProject } from '@/content/projects';
-import { site } from '@/content/site';
 import { stagger } from '@/lib/stagger';
 import { GlyphField } from './glyph-field';
+import { RotatingWord } from './rotating-word';
 
 /**
  * The opener: a three-line headline that rises line by line, a short intro
  * whose underlined phrases preview the projects they describe, and the glyph
  * field behind it all on the right.
  *
- * Server Component; only the glyph canvas is a client island.
+ * Server Component; the glyph canvas and the rotating headline word are the
+ * only client islands.
  */
 export function Hero() {
-  const { headline, intro, hint } = home.hero;
+  const { headline, rotating, intro, hint } = home.hero;
 
   return (
     <section aria-labelledby="hero-title" className="relative overflow-clip">
@@ -28,7 +29,15 @@ export function Hero() {
           {headline.map((line, i) => (
             <span key={line} className="line-slot" style={stagger(i)}>
               <span className={i === headline.length - 1 ? 'text-accent' : undefined}>
-                {line}
+                {line.includes(rotating.word) ? (
+                  <>
+                    {line.slice(0, line.indexOf(rotating.word))}
+                    <RotatingWord words={rotating.words} />
+                    {line.slice(line.indexOf(rotating.word) + rotating.word.length)}
+                  </>
+                ) : (
+                  line
+                )}
               </span>
             </span>
           ))}
@@ -46,9 +55,9 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a className="btn btn-hot" href={`mailto:${site.email}`}>
+            <SectionLink className="btn btn-hot" href="/#contact">
               Start a project
-            </a>
+            </SectionLink>
             <SectionLink className="btn btn-line" href="/#work">
               View work
             </SectionLink>

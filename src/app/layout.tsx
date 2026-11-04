@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { Opening } from '@/components/site/opening';
 import { SiteFooter } from '@/components/site/site-footer';
 import { SiteHeader } from '@/components/site/site-header';
 import { SmoothScroll } from '@/components/site/smooth-scroll';
@@ -44,8 +45,11 @@ const personJsonLd = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
+    // `suppressHydrationWarning`: the opening screen's inline script may stamp
+    // `data-opening` on <html> before React hydrates.
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${unbounded.variable} ${manrope.variable} ${plexMono.variable}`}
     >
       <body className="font-sans">
@@ -55,6 +59,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           Skip to content
         </a>
+        <Opening />
         <SmoothScroll />
         <SiteHeader />
         <main id="main">{children}</main>

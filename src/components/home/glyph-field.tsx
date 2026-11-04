@@ -52,7 +52,12 @@ export function GlyphField({
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.font = '12px "IBM Plex Mono", ui-monospace, monospace';
+      // next/font gives the face a generated family name; read it from the
+      // variable it sets rather than naming the font directly.
+      const mono = getComputedStyle(document.documentElement)
+        .getPropertyValue('--font-plex-mono')
+        .trim();
+      ctx.font = `12px ${mono || 'ui-monospace'}, monospace`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
     };

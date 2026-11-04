@@ -1,0 +1,122 @@
+/* ---------------------------------------------------------------------------
+   The opening screen (components/site/opening.tsx).
+
+   Timeline, all CSS:
+     0.00s  wordmark and name rise in
+     0.15s  counter runs 000 → 100 while the accent line fills (1.1s)
+     1.25s  the sheet wipes up off the page (0.6s)
+     1.85s  gone: `visibility: hidden` takes it out of hit-testing
+
+   `--opening-delay` is how long the hero waits before its own entrance, so
+   the headline rises just as the sheet clears. It drops to 0 when the sheet
+   is skipped (already seen this visit, or reduced motion).
+   --------------------------------------------------------------------------- */
+
+:root {
+  --opening-delay: 1.45s;
+}
+
+.opening {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 32vh;
+  background: var(--color-ground);
+  /* Set explicitly so the exit can interpolate from it; `none` cannot be
+     animated to an inset(). */
+  clip-path: inset(0 0 0 0);
+  animation: opening-exit 0.6s cubic-bezier(0.7, 0, 0.2, 1) 1.25s forwards;
+}
+
+.opening-mark {
+  font-size: clamp(3rem, 2rem + 5vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  animation: opening-rise 0.8s cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+.opening-role {
+  animation: opening-rise 0.8s cubic-bezier(0.2, 0.75, 0.2, 1) 0.12s both;
+}
+
+.opening-foot {
+  animation: opening-fade 0.4s ease 0.1s both;
+}
+
+.opening-bar > span {
+  transform-origin: left;
+  animation: opening-fill 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.15s both;
+}
+
+/* A counter that runs to 100. Animating a registered integer property is
+   what lets CSS count; where @property isn't supported the number simply
+   doesn't appear, and the line still fills. */
+@property --opening-pct {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.opening-count {
+  font-variant-numeric: tabular-nums;
+  counter-reset: pct var(--opening-pct);
+  animation: opening-count 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.15s both;
+}
+
+.opening-count::after {
+  content: counter(pct, decimal-leading-zero);
+}
+
+/* Already seen this visit, or motion not wanted: never draw it. */
+[data-opening='seen'] .opening {
+  display: none;
+}
+
+[data-opening='seen'] {
+  --opening-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opening {
+    display: none;
+  }
+
+  :root {
+    --opening-delay: 0s;
+  }
+}
+
+@keyframes opening-exit {
+  to {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
+}
+
+@keyframes opening-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.75em);
+  }
+}
+
+@keyframes opening-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes opening-fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes opening-count {
+  to {
+    --opening-pct: 100;
+  }
+}

@@ -50,7 +50,7 @@ export function SiteFooter() {
 
       <div className="flex flex-col gap-4 pt-6 label text-muted sm:flex-row sm:items-center sm:justify-between">
         <p>
-          © {year} {site.name} · 
+          © {year} {site.name} ·
         </p>
         <ul className="flex gap-6">
           {site.socials.map((social) => (
