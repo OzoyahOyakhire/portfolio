@@ -12,6 +12,20 @@ export const site = {
   description:
     'Software developer building web platforms, automation and systems with a model inside. Design and engineering from the same pair of hands.',
 
+  /**
+   * What search results and link previews show. The description is kept
+   * under ~155 characters so Google doesn't cut it off, and says plainly who,
+   * what and where, since those are what people actually search for.
+   */
+  seo: {
+    title: 'Ozoyah Oyakhire — Freelance Web & Software Developer in Nigeria',
+    description:
+      'Freelance web and software developer in Nigeria. I design and build websites, web apps and dashboards with React and Next.js for founders and small businesses.',
+    /** The job title search engines see in structured data. */
+    jobTitle: 'Freelance Web & Software Developer',
+    twitter: '@heyOzed',
+  },
+
   hero: {
     eyebrow: 'Software developer',
     headline: ['I build the software', 'businesses actually', 'run on.'],
@@ -36,6 +50,7 @@ export const site = {
   /** Root-relative so they work from a case-study page as well as the home page. */
   nav: [
     { label: 'Work', href: '/#work' },
+    { label: 'Services', href: '/services' },
     { label: 'About', href: '/#about' },
     { label: 'Stack', href: '/#stack' },
     { label: 'Contact', href: '/#contact' },

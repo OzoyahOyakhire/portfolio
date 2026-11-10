@@ -7,8 +7,10 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
  * of a clipped slot as the next slides in. The slot's width eases to fit the
  * incoming word, so the rest of the line moves smoothly instead of jumping.
  *
- * - Screen readers get only the first word, read once as plain text; the
- *   moving copies are `aria-hidden`.
+ * - Only the first word is real text, so search engines and screen readers
+ *   read the headline as written ("…build software people…"). The other
+ *   words are drawn by CSS from `data-word` (pseudo-element text is not
+ *   indexed) and are `aria-hidden`.
  * - Without JavaScript, or for visitors who prefer reduced motion, it simply
  *   shows the first word and never moves.
  * - It pauses while the tab is hidden, so it doesn't race through words in the
@@ -73,18 +75,18 @@ export function RotatingWord({
 
   return (
     <span className="rotator" style={width ? { width } : undefined}>
-      <span className="sr-only">{words[0]}</span>
       {words.map((word, i) => (
         <span
           key={word}
           ref={(el) => {
             items.current[i] = el;
           }}
-          aria-hidden="true"
+          aria-hidden={i === 0 ? undefined : true}
+          data-word={i === 0 ? undefined : word}
           className="rotator-word"
           data-state={i === index ? 'in' : i === previous ? 'out' : undefined}
         >
-          {word}
+          {i === 0 ? word : null}
         </span>
       ))}
     </span>

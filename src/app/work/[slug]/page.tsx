@@ -8,6 +8,7 @@ import { ArchitectureFigure } from '@/components/work/architecture-figure';
 import { ProjectSketch } from '@/components/work/sketches';
 import { getProject, neighbours, projects } from '@/content/projects';
 import { site } from '@/content/site';
+import { absoluteUrl } from '@/lib/site-url';
 import { stagger } from '@/lib/stagger';
 
 type Params = { slug: string };
@@ -29,15 +30,25 @@ export async function generateMetadata({
   const project = getProject(slug);
   if (!project) return {};
 
+  // "Livestock Cost Estimator: React Web App Case Study" — the layout's
+  // template then appends the name.
+  const title = `${project.title}: ${project.seo.kind}`;
+
   return {
-    title: project.title,
-    description: project.summary,
+    title,
+    description: project.seo.description,
     alternates: { canonical: `/work/${project.slug}` },
     openGraph: {
       type: 'article',
-      title: `${project.title} — ${site.name}`,
-      description: project.summary,
+      title: `${title} — ${site.name}`,
+      description: project.seo.description,
       url: `/work/${project.slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — ${site.name}`,
+      description: project.seo.description,
+      creator: site.seo.twitter,
     },
   };
 }
@@ -51,8 +62,43 @@ export default async function CaseStudyPage({ params }: { params: Promise<Params
   const index = projects.findIndex((p) => p.slug === project.slug);
   const { prev, next } = neighbours(project.slug);
 
+  // The project as a piece of work by the site's Person (defined once, in the
+  // root layout), plus a breadcrumb so results can show Home › Work › Project.
+  const url = absoluteUrl(`/work/${project.slug}`);
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CreativeWork',
+        '@id': `${url}#work`,
+        name: project.title,
+        headline: project.title,
+        description: project.lede,
+        url,
+        dateCreated: project.year,
+        genre: project.category,
+        keywords: project.tags.join(', '),
+        creator: { '@id': absoluteUrl('/#person') },
+        ...(project.href ? { sameAs: project.href } : {}),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl('/') },
+          { '@type': 'ListItem', position: 2, name: 'Work', item: absoluteUrl('/#work') },
+          { '@type': 'ListItem', position: 3, name: project.title, item: url },
+        ],
+      },
+    ],
+  };
+
   return (
     <article aria-labelledby="case-title">
+      <script
+        type="application/ld+json"
+        // Built from static content files; nothing user-supplied reaches it.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Band as="div" innerClassName="pt-10 pb-12 md:pt-12">
         <div className="flex items-baseline justify-between border-b-2 border-fg pb-3.5">
           <Link

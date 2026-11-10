@@ -15,7 +15,12 @@ export const projects = [
     href: 'https://livestock-cost-estimator.vercel.app/',
     shot: {
       src: livestockShot,
-      alt: 'The LivestockIQ homepage: the headline “Make Smarter Livestock Investment Decisions” above Start Estimation and Watch Demo buttons.',
+      alt: 'Livestock Cost Estimator, a farm profit estimator web app built with React: the homepage headline “Make Smarter Livestock Investment Decisions” above Start Estimation and Watch Demo buttons.',
+    },
+    seo: {
+      kind: 'React Web App Case Study',
+      description:
+        'A farm profit estimator web app built with React: cost estimation and profit prediction for poultry and cattle farmers, with a step-by-step wizard and dashboard.',
     },
     summary:
       'Cost estimation and profit prediction for poultry and cattle farmers, so an investment decision starts from numbers instead of a hunch.',
@@ -27,7 +32,7 @@ export const projects = [
 
     lede: 'Cost estimation and profit prediction for poultry and cattle farmers, built so the decision starts from numbers rather than a hunch.',
     meta: [
-      { label: 'Role', value: 'Design and build' },
+      { label: 'Role', value: 'Product design, React frontend and dashboard development' },
       { label: 'Type', value: 'Web application' },
       { label: 'Livestock', value: 'Poultry · Cattle' },
       { label: 'Status', value: 'Live' },
@@ -60,7 +65,12 @@ export const projects = [
     href: 'https://www.phcworkhub.com/',
     shot: {
       src: phcShot,
-      alt: 'The PHC WorkHub homepage: the headline “Free Online Document Generator for Paystubs, Invoices, W-2 Forms & More” above a template search bar.',
+      alt: 'PHC WorkHub, a document generator web app: the homepage headline “Free Online Document Generator for Paystubs, Invoices, W-2 Forms & More” above a template search bar.',
+    },
+    seo: {
+      kind: 'Web App Case Study',
+      description:
+        'A document generator web app for paystubs, invoices, W-2s and 1099s. I worked on the frontend and wrote the unit and integration tests.',
     },
     summary:
       'An online document generator for paystubs, invoices, W-2s, 1099s and 20+ other templates. I worked on the frontend and on testing.',
@@ -72,7 +82,7 @@ export const projects = [
 
     lede: 'An online document generator for paystubs, invoices, W-2s, 1099s and 20+ other business templates. I was on the team as a frontend developer, and I also worked on testing.',
     meta: [
-      { label: 'Role', value: 'Frontend developer & testing' },
+      { label: 'Role', value: 'Frontend development and testing' },
       { label: 'Team', value: 'Part of a product team' },
       { label: 'Testing', value: 'Unit · Integration · Manual' },
       { label: 'Status', value: 'Live' },
@@ -105,7 +115,12 @@ export const projects = [
     href: 'https://job-finder-one-ebon.vercel.app/',
     shot: {
       src: jobFinderShot,
-      alt: 'The JobFinder homepage: a green banner asking “Looking for a Job?” above two cards, one for developers to browse jobs and one for employers to add a job.',
+      alt: 'JobFinder, a job board web app built with React: a green banner asking “Looking for a Job?” above two cards, one for developers to browse jobs and one for employers to add a job.',
+    },
+    seo: {
+      kind: 'React Web App Case Study',
+      description:
+        'A two-sided job board web app built with React, where developers browse roles and employers sign in to post them.',
     },
     summary: 'A job board with two sides: developers browse roles, employers post them.',
     hardPart:
@@ -115,7 +130,7 @@ export const projects = [
 
     lede: 'A job board with two sides: developers browse roles, employers sign in and post them.',
     meta: [
-      { label: 'Role', value: 'Design and build' },
+      { label: 'Role', value: 'Design and React development' },
       { label: 'Type', value: 'Web application' },
       { label: 'Users', value: 'Developers · Employers' },
       { label: 'Status', value: 'Live' },
@@ -148,7 +163,12 @@ export const projects = [
     href: 'https://aquimoda.vercel.app/',
     shot: {
       src: aquimodaShot,
-      alt: 'The Aquimoda London homepage: an editorial hero image beside the studio name and a booking call to action.',
+      alt: 'Aquimoda London, a booking website for a personal styling studio: an editorial hero image beside the studio name and a booking call to action.',
+    },
+    seo: {
+      kind: 'Website Case Study',
+      description:
+        'An editorial website with a booking flow for a London personal styling studio, designed in Figma and built to load fast on mobile.',
     },
     summary:
       'A personal styling studio that needed a site as considered as the service itself.',
@@ -159,7 +179,7 @@ export const projects = [
 
     lede: 'A personal styling and wardrobe studio that needed a site as considered as the service it was selling.',
     meta: [
-      { label: 'Role', value: 'Design and build' },
+      { label: 'Role', value: 'Web design and development' },
       { label: 'Timeline', value: '11 weeks' },
       { label: 'Stack', value: 'Figma · HTML · CSS · JavaScript' },
       { label: 'Status', value: 'Live' },

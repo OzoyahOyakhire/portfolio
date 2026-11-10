@@ -444,6 +444,12 @@
   opacity: 0;
 }
 
+/* Every word but the first is drawn from its `data-word`, so the headline
+   text that search engines index stays "software". */
+.rotator-word[data-word]::before {
+  content: attr(data-word);
+}
+
 .rotator-word[data-state='in'],
 .rotator-word[data-state='out'] {
   transition:

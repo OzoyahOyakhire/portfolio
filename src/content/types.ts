@@ -103,4 +103,11 @@ export interface Project {
   readonly decisions?: readonly Decision[];
 
   readonly shot?: { readonly src: StaticImageData; readonly alt: string };
+
+  /**
+   * How the project is named for search: `kind` goes into the case study's
+   * page title ("… — React Web App Case Study"), `description` into its
+   * search snippet. Both say what was built in the words people search with.
+   */
+  readonly seo: { readonly kind: string; readonly description: string };
 }

@@ -19,7 +19,7 @@ export const home = {
       words: ['software', 'websites', 'web apps'],
     },
     intro: [
-      'I’m Ozoyah Oyakhire (Ozed), a software developer who cares about how things work just as much as how they look. I design and build ',
+      'I’m Ozoyah Oyakhire (Ozed), a freelance web and software developer who cares about how things work just as much as how they look. I design and build ',
       { text: 'web apps', project: 'job-finder' },
       ', ',
       { text: 'dashboards', project: 'livestock-cost-estimator' },
@@ -32,7 +32,7 @@ export const home = {
 
   work: {
     eyebrow: 'Selected work',
-    title: 'Projects that are live and in use.',
+    title: 'Websites and web apps I’ve built, all live and in use.',
     detailsTitle: 'The details',
     detailsHint: 'Open a project to see it running',
   },
@@ -41,7 +41,7 @@ export const home = {
     eyebrow: 'About me',
     headline: 'One person. Both halves of the job.',
     body: [
-      'I started as a frontend developer and learned design because I wanted my work to look as good as it runs. Now I handle both, so nothing gets lost between the mockup and the product.',
+      'I hold a BSc in Computer Science and have spent three years building software for clients. I started as a frontend developer and learned design because I wanted my work to look as good as it runs. Now I handle both, so you get a web designer and developer in one person, from first sketch to launch, and nothing gets lost between the mockup and the product.',
       'You talk to me directly, you see real progress in the first week, and you keep the keys when we’re done.',
     ],
   },
@@ -54,5 +54,6 @@ export const home = {
   contact: {
     eyebrow: 'Contact',
     headline: ['Let’s build', 'something'],
+    body: 'Need a developer for your website or web app? Tell me what it is and what it’s meant to fix. If I’m the wrong person for it, I’ll tell you that too, and usually who is.',
   },
 } as const;

@@ -7,7 +7,7 @@ import { site } from '@/content/site';
  * call to action, so the page opens and closes on the same texture.
  */
 export function SiteFooter() {
-  const { eyebrow, headline } = home.contact;
+  const { eyebrow, headline, body } = home.contact;
   const year = new Date().getFullYear();
 
   return (
@@ -24,14 +24,13 @@ export function SiteFooter() {
           id="contact-title"
           className="mt-6 font-display text-[clamp(2.2rem,1.2rem+4.8vw,4.5rem)] leading-none font-extrabold tracking-[-0.035em]"
         >
-          {headline[0]}
-          <br />
+          {/* The space keeps "build something" as two words for search engines
+              and copy-paste; the <br> only breaks the line visually. */}
+          {headline[0]} <br />
           {headline[1]}
           <span className="text-accent">.</span>
         </h2>
-        <p className="mt-8 max-w-[34rem] text-lg leading-relaxed text-fg-soft">
-          {site.cta.body}
-        </p>
+        <p className="mt-8 max-w-[34rem] text-lg leading-relaxed text-fg-soft">{body}</p>
         <div className="mt-10 flex flex-wrap gap-3">
           <a className="btn btn-hot" href={`mailto:${site.email}`}>
             {site.email}
